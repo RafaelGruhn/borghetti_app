@@ -1,0 +1,21 @@
+[run]
+branch=True
+source=.
+omit =
+   */.venv/*
+   */migrations/*
+   django/wise2/settings/*
+   django/wise2/wsgi.py
+   */apps.py
+
+[report]
+ignore_errors=True
+skip_covered=True
+exclude_lines=
+   pragma: no cover
+   raise AssertionError
+   raise NotImplementedError
+   if __name__ == .__main__.:
+
+[html]
+directory=cover

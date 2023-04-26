@@ -1,0 +1,62 @@
+*~
+*.pye
+*.pyc
+*.sqlite3
+*.mo
+**/__pycache__/
+*.html.py
+.python-version
+.coverage
+.vscode
+.idea
+secret_key.txt
+cover
+HASH
+.scannerwork
+pylint-report.txt
+coverage.xml
+statistics.html
+.coverage.*
+backups/*
+yarn.lock
+.mypy_cache
+chrome.deb
+chromedriver
+selenium-server-standalone.jar
+.DS_Store
+!.gitkeep
+celerybeat*
+celeryd.*.pid
+dev/.vagrant
+icinga/data
+dev/shared/**
+web/ovecloud/logs/
+web/ovecloud/secret_key.txt
+web/ovecloud/ovecloud/media
+node_modules/
+builds/
+grafana.db
+*.env
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+ 
+# dependencies
+*/node_modules
+*/.pnp
+*.pnp.js
+ 
+# testing
+*/coverage
+ 
+# production
+*/build
+ 
+# misc
+*.DS_Store
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+ 
+*npm-debug.log*
+*yarn-debug.log*
+*yarn-error.log*
