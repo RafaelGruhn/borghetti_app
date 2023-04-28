@@ -1,0 +1,30 @@
+#NavBar{
+    background-color: #6B3C34 !important;
+    min-height: 80px;
+}
+#Logo{
+    color: #F2E8E6 !important;
+    position: absolute;
+    left: calc(50% - 60px);
+    top: -5px;
+    width: 120px;
+}
+.nav-link{
+    color: #F2E8E6 !important;
+    font-size: 20px !important;
+}
+.nav-link:hover{
+    color: #F2E8E6 !important;
+    font-size: 20px !important;
+    border-bottom: 2px solid #F2E8E6 !important;
+}
+#Nav2{
+    flex-direction: row-reverse !important;
+    justify-content: space-between;
+    min-width: 80px;
+}
+#Campainha {
+    height: 32px;
+    width: 32px;
+    filter: invert(100%);
+}
