@@ -36,7 +36,7 @@ web/ovecloud/ovecloud/media
 node_modules/
 builds/
 grafana.db
-*.env
+# *.env
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
  
 # dependencies

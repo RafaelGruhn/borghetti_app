@@ -1,0 +1,19 @@
+[
+  {
+    "model": "users.user",
+    "pk": "14c95068-f985-477b-acc4-b9d7459ff497",
+    "fields": {
+      "password": "pbkdf2_sha256$320000$buTCE9YrODifTArgdShcYk$MFXD0pnFur9GTBzjyyYvZ/TvFsqFazt1ngSMCI9PJAE=",
+      "last_login": "2022-10-14T12:42:43.027Z",
+      "first_name": "Admin",
+      "last_name": "",
+      "is_superuser": true,
+      "username": "admin",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2022-10-14T12:42:39.181Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

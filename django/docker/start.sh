@@ -13,7 +13,7 @@ python manage.py migrate
 echo "Migrated!"
 
 echo "Loading fixtures (uncomment if you want to load)..."
-#python manage.py loaddata */fixtures/*.json
+python manage.py loaddata */fixtures/*.json
 echo "Loaded!"
 
 #echo "Compiling translations..."

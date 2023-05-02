@@ -1,6 +1,7 @@
 """borghetti main settings."""
 # pylint: disable=useless-suppression,ungrouped-imports,too-many-lines
 import os
+import datetime
 
 from django.utils.translation import gettext_lazy as _
 
@@ -19,6 +20,7 @@ with open(os.path.join(BASE_DIR, 'secret_key.txt'), 'r') as f:
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 APP_NAME = "Borghetti APP"
 
@@ -34,6 +36,8 @@ DEFAULT_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
+    'rest_framework',
+    'rest_framework.authtoken',
 ]
 
 try:
@@ -42,6 +46,8 @@ except NameError:
     LOCAL_APPS = []
 
 LOCAL_APPS += [
+    'users',
+    'products'
 ]
 
 try:
@@ -186,3 +192,26 @@ LOGGING = {
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 SESSION_COOKIE_AGE = 60 * 60 * 24  # 1 day
 CI = False
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': datetime.timedelta(days=1),
+}
+
+CORS_ALLOW_ALL_ORIGINS = True
+
+AUTH_USER_MODEL = 'users.User'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 30,
+    'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+    'COERCE_DECIMAL_TO_STRING': False,
+}

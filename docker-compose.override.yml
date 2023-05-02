@@ -3,15 +3,15 @@ version: "3.7"
 services:
   postgres:
     env_file:
-      - ./envs/postgres.env
+      - ./envs/dev/postgres.env
   django:
     build:
       context: ./django
       args:
         MODE: development
     env_file:
-      - ./envs/postgres.env
-      - ./envs/django.env
+      - ./envs/dev/postgres.env
+      - ./envs/dev/django.env
     volumes:
       - ./django/:/code/
     ports:
