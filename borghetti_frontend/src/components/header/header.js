@@ -2,8 +2,6 @@ import React from 'react'
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import sair from './sair-32.png'
 import logo from './Logo Borghetti.png'
 import campainha from './campainha.png'
 import './header.css'
@@ -21,7 +19,7 @@ export default function Header() {
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
                 {pages.map((page) => { 
-                    return <Nav.Link href={"/"+page.toLowerCase()}>{page}</Nav.Link>
+                    return <Nav.Link key={page} href={"/"+page.toLowerCase()}>{page}</Nav.Link>
                 })}
             </Nav>
             </Navbar.Collapse>
