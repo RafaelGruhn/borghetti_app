@@ -6,9 +6,11 @@ import { Table, Button } from 'react-bootstrap';
 import './produtos.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons'
+import Delete from './delete';
 
 const Produtos = () => {
     const [produtos, setProdutos] = useState([]);
+    const [reload, setReload] = useState(false);
 
     const fetchProdutos = async () => {
         const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/produto');
@@ -16,6 +18,12 @@ const Produtos = () => {
         console.log(response.data);
     }
 
+    if (reload) {
+        setReload(false);
+        console.log('reload')
+        fetchProdutos();
+    }    
+    
     useEffect(() => {
         fetchProdutos();
     }, []);
@@ -39,7 +47,7 @@ const Produtos = () => {
                         <td>{produto.name}</td>
                         <td>{produto.produtoCategoria}</td>
                         <td>{produto.material}</td>
-                        <td><Button href={'/produtos/edit/' + produto.id} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>{' '}<Button href={'/produtos/remove/' + produto.id} variant="outline-danger"><FontAwesomeIcon icon={faTrash} /></Button>{' '}</td>
+                        <td>  <Button href={'/produtos/edit/' + produto.id} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>{' '} <Delete produto={produto} reload={setReload}></Delete> </td>
                     </tr>
                 )
                 )}
