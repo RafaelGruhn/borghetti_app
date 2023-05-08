@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap'
 const Base = ({children}) => { return(
     <div className="app">
         <Header/>
-        <Container>{children}</Container>
+        <Container id='MainContainer'>{children}</Container>
         <Footer />
     </div>
 )}

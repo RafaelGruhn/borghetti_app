@@ -11,21 +11,18 @@ const setToken = (userToken) => {
     } else {
         localStorage.removeItem('token')
     }
-    console.log(userToken)
     window.location.reload()
 }
 
 const getToken = () => {
     const tokenString = localStorage.getItem('token')
     const userToken = JSON.parse(tokenString)
-    console.log(!userToken)
     return userToken?.logged
 }
 
 
 const App = () => {
     const token = getToken()
-    console.log(token)
     return (
         <BrowserRouter>
                 <Routes token={token} setToken={setToken}/>  

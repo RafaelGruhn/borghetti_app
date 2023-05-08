@@ -8,7 +8,7 @@ import './header.css'
 
 import './header.css'
 
-let pages=["Produtos", "Pedidos" ]
+let pages=[ "Pedidos", "Produtos", "Categorias", "Clientes" ]
 
 export default function Header() {
     return (

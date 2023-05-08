@@ -1,4 +1,4 @@
-.ProductsHeader{
+.CategoriasHeader{
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,12 +17,17 @@ h1 {
     width: 160px;
     height: 50px;
 }
-#th1Produtos{
-    width: 10%;
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #ddd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    justify-content: end;
 }
-#th2Produtos{
-    width: 70%;
-}
-#th3Produtos{
-    width: 15%;
+
+#th1Categorias{
+    width: 90%;
 }

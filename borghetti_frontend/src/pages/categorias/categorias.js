@@ -3,38 +3,38 @@ import React, { useEffect , useState} from 'react'
 import Base from '../../components/Base'
 import axios from 'axios'
 import { Table, Button, Form } from 'react-bootstrap';
-import './produtos.css'
+import './categorias.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Delete from './delete';
 import Create from './create';
 import Update from './update';
 
-const Produtos = () => {
-    const [produtos, setProdutos] = useState([]);
+const Categorias = () => {
+    const [categorias, setCategorias] = useState([]);
     const [reload, setReload] = useState(false);
 
-    const fetchProdutos = async () => {
-        // const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/produto');
-        const response = await axios.get('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/produtos');
-        setProdutos(response.data);
+    const fetchCategorias = async () => {
+        // const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/categoria');
+        const response = await axios.get('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/categorias');
+        setCategorias(response.data);
         console.log(response.data);
     }
 
     if (reload) {
         setReload(false);
         console.log('reload')
-        fetchProdutos();
+        fetchCategorias();
     }    
     
     useEffect(() => {
-        fetchProdutos();
+        fetchCategorias();
     }, []);
 
     return (
         <Base>
-            <h1>Produtos</h1>
-            <div className='ProductsHeader'>
+            <h1>Categorias</h1>
+            <div className='CategoriasHeader'>
                 <Form className="searchForm d-flex">
                     <Form.Control
                     type="search"
@@ -46,23 +46,18 @@ const Produtos = () => {
             </Form>
                 <Create reload={setReload}></Create>
             </div>
-                    <h3>aa</h3>
                 <Table striped>
                     <thead>
                         <tr>
-                            <th id='th1Produtos'>Nome</th>
-                            <th id='th2Produtos'>Descrição</th>
-                            <th id='th3Produtos'>Valor</th>
-                            <th id='th4Produtos'>Ações</th>
+                            <th id='th1Categorias'>Nome</th>
+                            <th id='th2Categorias'>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-            {produtos.map((produto) => ( 
-                    <tr key={produto.id}>
-                        <td>{produto.name}</td>
-                        <td>{produto.descricao}</td>
-                        <td>{'RS '+produto.preco.replace('.',',')}</td>
-                        <td className="text-nowrap">  <Update produto={produto} reload={setReload}></Update>{' '} <Delete produto={produto} reload={setReload}></Delete> </td>
+            {categorias.map((categoria) => ( 
+                    <tr key={categoria.id}>
+                        <td>{categoria.name}</td>
+                        <td className="text-nowrap">  <Update categoria={categoria} reload={setReload}></Update>{' '} <Delete categoria={categoria} reload={setReload}></Delete> </td>
                     </tr>
                 )
                 )}
@@ -72,4 +67,4 @@ const Produtos = () => {
     )
 }
 
-export default Produtos
+export default Categorias
