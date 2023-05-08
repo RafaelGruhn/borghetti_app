@@ -5,16 +5,18 @@ import axios from 'axios'
 import { Table, Button, Form } from 'react-bootstrap';
 import './produtos.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPencil, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Delete from './delete';
 import Create from './create';
+import Update from './update';
 
 const Produtos = () => {
     const [produtos, setProdutos] = useState([]);
     const [reload, setReload] = useState(false);
 
     const fetchProdutos = async () => {
-        const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/produto');
+        // const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/produto');
+        const response = await axios.get('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/produtos');
         setProdutos(response.data);
         console.log(response.data);
     }
@@ -58,9 +60,9 @@ const Produtos = () => {
             {produtos.map((produto) => ( 
                     <tr key={produto.id}>
                         <td>{produto.name}</td>
-                        <td>{produto.produtoCategoria}</td>
-                        <td>{produto.material}</td>
-                        <td class="text-nowrap">  <Button href={'/produtos/edit/' + produto.id} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>{' '} <Delete produto={produto} reload={setReload}></Delete> </td>
+                        <td>{produto.descricao}</td>
+                        <td>{produto.preco}</td>
+                        <td className="text-nowrap">  <Update produto={produto} reload={setReload}></Update>{' '} <Delete produto={produto} reload={setReload}></Delete> </td>
                     </tr>
                 )
                 )}
