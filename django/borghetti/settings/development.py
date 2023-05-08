@@ -4,7 +4,7 @@ from borghetti.settings.main import *  # noqa pylint: disable=W0614,W0401
 DEBUG = True
 
 THIRD_PARTY_APPS = [
-    "django_extensions",
+    # "django_extensions",
 ]
 THIRD_PARTY_APPS += ['behave_django']
 

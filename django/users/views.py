@@ -1,11 +1,13 @@
 from rest_framework_simplejwt.views import TokenViewBase
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 from users.serializers import UserTokenSerializer
 
 
 class UserTokenObtainPairView(TokenViewBase):
     """User token obtain pair view."""
+    serializer_class = TokenObtainPairSerializer
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)
 

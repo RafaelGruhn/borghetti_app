@@ -19,3 +19,10 @@ services:
     environment:
       MODE: development
       LOGS_ROOT: /code/logs/development
+  frontend:
+    build:
+      context: ./borghetti_frontend
+      args:
+        MODE: development
+    ports:
+      - 0.0.0.0:80:80
