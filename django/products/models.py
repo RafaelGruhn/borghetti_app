@@ -4,11 +4,6 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
-class RoleChoices(models.TextChoices):
-    ADMIN = 'admin', _('Administrador')
-    CLIENT = 'client', _('Cliente')
-
-
 class ProductType(models.Model):
     """Product Type Model"""
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)

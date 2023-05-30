@@ -10,7 +10,7 @@ class UserTokenSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = [
-            'id', 'first_name', 'last_name', 'role', 'username', 'is_superuser', 'is_staff', 'is_active',
+            'id', 'first_name', 'last_name', 'username', 'is_superuser', 'is_staff', 'is_active',
         ]
 
 
@@ -20,6 +20,6 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
         fields = [
-            'id', 'first_name', 'last_name', 'role', 'username', 'is_superuser', 'is_staff', 'is_active',
+            'id', 'first_name', 'last_name', 'username', 'is_superuser', 'is_staff', 'is_active',
         ]
 
