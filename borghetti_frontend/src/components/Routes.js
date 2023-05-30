@@ -9,7 +9,9 @@ import Logout from '../pages/logout'
 import Categorias from '../pages/categorias'
 
 const AppRoutes = ({token, setToken}) => {
-    if (token) {
+    const tokenUser = JSON.parse(localStorage.getItem('tokenUser'))
+    console.log(tokenUser)
+    if (tokenUser?.username === 'admin') {
         return (
             <Routes>
                 <Route path="pedidos" element={<Pedidos />} />
