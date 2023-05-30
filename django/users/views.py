@@ -1,8 +1,11 @@
+from rest_framework import viewsets
 from rest_framework_simplejwt.views import TokenViewBase
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
-from users.serializers import UserTokenSerializer
+from users.serializers import UserTokenSerializer, UserSerializer
+from users.models import User
 
 
 class UserTokenObtainPairView(TokenViewBase):
@@ -19,3 +22,10 @@ class UserTokenObtainPairView(TokenViewBase):
             response.data['user'] = user_serialized.data
 
         return response
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    """ViewSet for User model."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated, IsAdminUser]

@@ -12,3 +12,14 @@ class UserTokenSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'first_name', 'last_name', 'role', 'username', 'is_superuser', 'is_staff', 'is_active',
         ]
+
+
+class UserSerializer(serializers.ModelSerializer):
+    """User serializer."""
+
+    class Meta:
+        model = get_user_model()
+        fields = [
+            'id', 'first_name', 'last_name', 'role', 'username', 'is_superuser', 'is_staff', 'is_active',
+        ]
+
