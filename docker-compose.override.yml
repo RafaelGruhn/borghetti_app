@@ -25,4 +25,4 @@ services:
       args:
         MODE: development
     ports:
-      - 0.0.0.0:80:80
+      - 0.0.0.0:8080:8080
