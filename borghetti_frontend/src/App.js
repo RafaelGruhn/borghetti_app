@@ -7,15 +7,19 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const setToken = (userToken) => {
     if (userToken) {
-        localStorage.setItem('token', JSON.stringify(userToken))
+        localStorage.setItem('tokenAccess', JSON.stringify(userToken.access))
+        localStorage.setItem('tokenRefresh', JSON.stringify(userToken.refresh))
+        localStorage.setItem('tokenUser', JSON.stringify(userToken.user))
     } else {
-        localStorage.removeItem('token')
+        localStorage.removeItem('tokenAccess')
+        localStorage.removeItem('tokenRefresh')
+        localStorage.removeItem('tokenUser')
     }
     window.location.reload()
 }
 
 const getToken = () => {
-    const tokenString = localStorage.getItem('token')
+    const tokenString = localStorage.getItem('tokenUser')
     const userToken = JSON.parse(tokenString)
     return userToken?.logged
 }
