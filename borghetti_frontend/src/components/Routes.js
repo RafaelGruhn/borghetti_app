@@ -7,6 +7,7 @@ import Produtos from '../pages/produtos'
 import Login from '../pages/login'
 import Logout from '../pages/logout'
 import Categorias from '../pages/categorias'
+import Clientes from '../pages/clientes'
 
 const AppRoutes = ({token, setToken}) => {
     const tokenUser = JSON.parse(localStorage.getItem('tokenUser'))
@@ -17,6 +18,7 @@ const AppRoutes = ({token, setToken}) => {
                 <Route path="pedidos" element={<Pedidos />} />
                 <Route path="produtos" element={<Produtos />} />
                 <Route path="categorias" element={<Categorias />} />
+                <Route path="clientes" element={<Clientes />} />
                 <Route path="logout" element={<Logout setToken={setToken}/>} />
                 <Route path="*" element={<Navigate to="/pedidos" replace/>} />
             </Routes>
