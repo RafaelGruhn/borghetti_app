@@ -203,6 +203,8 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'users.User'
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost:3000', 'https://borghetti.gahlert.me', 'http://localhost:8080']
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
