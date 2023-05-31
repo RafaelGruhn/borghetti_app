@@ -15,7 +15,7 @@ const Delete =  ({cliente, reload}) => {
   const deleteCliente = async () => {
     setSpin(true);
     console.log(cliente.id);
-    const response = await axios.delete('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/clientes/' + cliente.id);
+    const response = await axios.delete('https://api.borghetti.gahlert.me/api/users/'+cliente.id, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
     console.log(response.data);
     setSpin(false);
     reload(true);
