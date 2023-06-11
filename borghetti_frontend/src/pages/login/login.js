@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import './login.css'
 import { Form, Button } from 'react-bootstrap'
 import logoBorghetti from './Logo Borghetti.png'
-import axios from 'axios'
+import API from '../../api.js';
 
 
 const Login = ({setToken}) => {
@@ -17,9 +17,14 @@ const Login = ({setToken}) => {
         e.preventDefault()
             setError('')
             setLoading(true)
-            const response = await axios.post('https://api.borghetti.gahlert.me/api/token/', { username, password })
+            const config = {
+                method: 'post',
+                url: 'api/token/',
+                data: { username, password },
+            };
+            let response = await API(config);
             setToken(response.data)
-        setLoading(false)
+            setLoading(false)
         } catch (error) {
             setError('Failed to log in')
             console.log(error)

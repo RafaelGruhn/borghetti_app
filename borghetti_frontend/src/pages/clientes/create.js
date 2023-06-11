@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios';
+import API from '../../api.js';
 import { Form } from 'react-bootstrap';
 
 const Create =  ({reload}) => {
@@ -20,7 +20,15 @@ const Create =  ({reload}) => {
     const cliente = { username, first_name, last_name };
     console.log(cliente);
     // const response = await axios.post('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/clientes', cliente);
-    const response = await axios.post('https://api.borghetti.gahlert.me/api/users/', cliente, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
+    const config = {
+      method: 'post',
+      url: 'api/users/',
+      headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+      },
+      data: cliente
+    };
+    let response = await API(config);
     console.log(response.data);
     setSpin(false);
     reload(true);

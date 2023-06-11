@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import axios from 'axios';
+import API from '../../api.js';
 
 const Delete =  ({cliente, reload}) => {
   const [show, setShow] = useState(false);
@@ -15,7 +16,15 @@ const Delete =  ({cliente, reload}) => {
   const deleteCliente = async () => {
     setSpin(true);
     console.log(cliente.id);
-    const response = await axios.delete('https://api.borghetti.gahlert.me/api/users/'+cliente.id, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
+    const config = {
+      method: 'delete',
+      url: `api/users/${cliente.id}/`,
+      headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+      },
+      data: cliente
+    };
+    let response = await API(config);
     console.log(response.data);
     setSpin(false);
     reload(true);

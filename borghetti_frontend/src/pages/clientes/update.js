@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
+import API from '../../api.js';
 import { Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
@@ -22,7 +23,15 @@ const Update =  ({cliente ,reload}) => {
     setSpin(true);
     const cliente = { username, first_name, last_name };
     console.log(cliente);
-    const response = await axios.post('https://api.borghetti.gahlert.me/api/users/'+clienteid, cliente, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
+    const config = {
+      method: 'patch',
+      url: `api/users/${clienteid}/`,
+      headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+      },
+      data: cliente
+    };
+    let response = await API(config);
     console.log(response.data);
     setSpin(false);
     reload(true);

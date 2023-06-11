@@ -8,7 +8,7 @@ services:
     build:
       context: ./django
       args:
-        MODE: development
+        MODE: production
     env_file:
       - ./envs/dev/postgres.env
       - ./envs/dev/django.env
@@ -17,14 +17,14 @@ services:
     ports:
       - 0.0.0.0:8000:8000
     environment:
-      MODE: development
-      LOGS_ROOT: /code/logs/development
+      MODE: production
+      LOGS_ROOT: /var/log/django
   frontend:
     build:
       context: ./borghetti_frontend
       args:
-        MODE: development
+        MODE: production
     ports:
       - 0.0.0.0:8080:8080
     environment:
-      VUE_APP_API_URL: http://localhost:8000
+      VUE_APP_API_URL: https://api.borghetti.gahlert.me
