@@ -20,7 +20,7 @@ const Create =  ({reload}) => {
     const cliente = { username, first_name, last_name };
     console.log(cliente);
     // const response = await axios.post('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/clientes', cliente);
-    const response = await axios.post('https://api.borghetti.gahlert.me/api/users/', cliente, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
+    const response = await axios.post(process.env.REACT_APP_API_URL+'users/', cliente, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
     console.log(response.data);
     setSpin(false);
     reload(true);

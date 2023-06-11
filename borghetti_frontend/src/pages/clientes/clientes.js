@@ -19,7 +19,7 @@ const Clientes = () => {
     const fetchClientes = async () => {
         // const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/cliente');
         // const response = await axios.get('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/Clientes');
-        const response = await axios.get('https://api.borghetti.gahlert.me/api/users/', { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
+        const response = await axios.get(process.env.REACT_APP_API_URL+'users/', { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
         setClientes(response.data.results);
         console.log(response.data);
     }

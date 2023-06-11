@@ -22,7 +22,7 @@ const Update =  ({cliente ,reload}) => {
     setSpin(true);
     const cliente = { username, first_name, last_name };
     console.log(cliente);
-    const response = await axios.post('https://api.borghetti.gahlert.me/api/users/'+clienteid, cliente, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
+    const response = await axios.post(process.env.REACT_APP_API_URL+'users/'+clienteid, cliente, { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
     console.log(response.data);
     setSpin(false);
     reload(true);
