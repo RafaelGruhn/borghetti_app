@@ -6,6 +6,7 @@ import logoBorghetti from './Logo Borghetti.png'
 import axios from 'axios'
 
 
+
 const Login = ({setToken}) => {
     const [username, setUsername] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -14,10 +15,10 @@ const Login = ({setToken}) => {
 
     const handleSubmit = async (e) => {
         try {
-        e.preventDefault()
+            e.preventDefault()
             setError('')
             setLoading(true)
-            const response = await axios.post('https://api.borghetti.gahlert.me/api/token/', { username, password })
+            const response = await axios.post(process.env.REACT_APP_API_URL+'token/', { username, password })
             setToken(response.data)
         setLoading(false)
         } catch (error) {
