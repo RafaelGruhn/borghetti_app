@@ -25,3 +25,20 @@ code {
 #MainContainer{
   min-height: calc(100vh - 141px);
 }
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #F5EED9;
+   color: #6B3C34;
+}
+.table-striped>tbody>tr:nth-child(even)>td,
+.table-striped>tbody>tr:nth-child(even)>th {
+   color: #6B3C34;
+}
+table {
+  border: 0px;
+  border-collapse: collapse;
+  width: 100%;
+}
+#MainContainer{
+  color: #6B3C34;
+}
