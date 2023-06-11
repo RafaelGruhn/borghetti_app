@@ -1,9 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import './login.css'
 import { Form, Button } from 'react-bootstrap'
 import logoBorghetti from './Logo Borghetti.png'
 import API from '../../api.js';
+
 
 
 const Login = ({setToken}) => {
@@ -14,7 +14,7 @@ const Login = ({setToken}) => {
 
     const handleSubmit = async (e) => {
         try {
-        e.preventDefault()
+            e.preventDefault()
             setError('')
             setLoading(true)
             const config = {
@@ -26,8 +26,9 @@ const Login = ({setToken}) => {
             setToken(response.data)
             setLoading(false)
         } catch (error) {
-            setError('Failed to log in')
+            setError('Erro ao fazer login')
             console.log(error)
+            setLoading(false)
         }
     }
 
@@ -38,17 +39,17 @@ const Login = ({setToken}) => {
                 <img className='logoLogin' src={logoBorghetti} alt="Logo Borghetti" />
                 <Form>
                     <Form.Group className="my-3" controlId="exampleForm.ControlInput1">
-                        <Form.Label>Email address</Form.Label>
-                        {/* <Form.Control type="email" placeholder="name@example.com" /> */}
-                        <Form.Control type="email" placeholder="nome@exemplo.com.br" onChange={e => setUsername(e.target.value)} />
+                        <Form.Label>Usuário</Form.Label>
+                        <Form.Control type="text" placeholder="nome" onChange={e => setUsername(e.target.value)} />
                     </Form.Group>
                     <Form.Group className="my-3" controlId="exampleForm.ControlInput2">
-                        <Form.Label>Password</Form.Label>
-                        {/* <Form.Control  type="password" placeholder="password" /> */}
+                        <Form.Label>Senha</Form.Label>
                         <Form.Control type="password" placeholder="senha" onChange={e => setPassword(e.target.value)} />
                     </Form.Group>
-                    {/* <Button variant="primary" onClick={() => { setToken({logged:"true"});}} type="submit"> Login</Button> */}
-                    <Button variant="primary" onClick={handleSubmit} type="submit"> Login</Button>
+                    <div id="txtLoginError" className="text-danger">{error}</div>
+                    <Button variant="primary" onClick={handleSubmit} type="submit">
+                        {loading ? <span className="spinner-border spinner-border-sm mr-2"></span> : 'Login'}
+                    </Button>
                 </Form>
             </div>
         </div>
