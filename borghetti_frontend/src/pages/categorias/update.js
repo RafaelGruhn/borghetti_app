@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import axios from 'axios';
+import API from '../../api.js';
 import { Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
@@ -20,7 +20,16 @@ const Update =  ({categoria ,reload}) => {
     setSpin(true);
     const categoria = { name };
     console.log(categoria);
-    const response = await axios.put('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/categorias/'+ categoriaid, categoria);
+    //const response = await axios.put('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/categorias/'+ categoriaid, categoria);
+    const config = {
+      method: 'patch',
+      url: 'api/product-types/' + categoriaid + '/',
+      headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+      },
+      data: categoria
+    };
+    let response = await API(config);
     console.log(response.data);
     setSpin(false);
     reload(true);

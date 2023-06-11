@@ -1,7 +1,7 @@
 // /src/pages/Contact.js
 import React, { useEffect , useState} from 'react'
 import Base from '../../components/Base'
-import axios from 'axios'
+import API from '../../api.js';
 import { Table, Button, Form } from 'react-bootstrap';
 import './categorias.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -17,9 +17,14 @@ const Categorias = () => {
 
 
     const fetchCategorias = async () => {
-        // const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/categoria');
-        // const response = await axios.get('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/categorias');
-        const response = await axios.get('https://api.borghetti.gahlert.me/api/product-types/', { headers: { Authorization: `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}` } });
+        const config = {
+            method: 'get',
+            url: 'api/product-types/',
+            headers: {
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+            },
+        };
+        const response = await API(config);
         setCategorias(response.data.results);
         console.log(response.data);
     }
