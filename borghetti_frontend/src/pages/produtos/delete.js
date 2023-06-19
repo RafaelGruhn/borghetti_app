@@ -3,7 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
-import axios from 'axios';
+import API from '../../api.js';
 
 const Delete =  ({produto, reload}) => {
   const [show, setShow] = useState(false);
@@ -15,7 +15,15 @@ const Delete =  ({produto, reload}) => {
   const deleteProduto = async () => {
     setSpin(true);
     console.log(produto.id);
-    const response = await axios.delete('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/produtos/' + produto.id);
+    const config = {
+      method: 'delete',
+      url: `api/products/${produto.id}/`,
+      headers: {
+          'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+      },
+      data: produto
+    };
+    let response = await API(config);
     console.log(response.data);
     setSpin(false);
     reload(true);

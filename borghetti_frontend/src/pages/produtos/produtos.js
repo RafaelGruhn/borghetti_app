@@ -1,7 +1,7 @@
 // /src/pages/Contact.js
 import React, { useEffect , useState} from 'react'
 import Base from '../../components/Base'
-import axios from 'axios'
+import API from '../../api.js';
 import { Table, Button, Form } from 'react-bootstrap';
 import './produtos.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,10 +15,16 @@ const Produtos = () => {
     const [reload, setReload] = useState(false);
 
     const fetchProdutos = async () => {
-        // const response = await axios.get('https://645111d9a32219691159e344.mockapi.io/api/v1/produto');
-        const response = await axios.get('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/produtos');
-        setProdutos(response.data);
+        const config = {
+            method: 'get',
+            url: 'api/products/',
+            headers: {
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+            },
+        };
+        let response = await API(config);
         console.log(response.data);
+        setProdutos(response.data.results);
     }
 
     if (reload) {
@@ -60,12 +66,11 @@ const Produtos = () => {
             {produtos.map((produto) => ( 
                     <tr key={produto.id}>
                         <td>{produto.name}</td>
-                        <td>{produto.descricao}</td>
-                        <td>{'RS '+produto.preco.replace('.',',')}</td>
-                        <td className="text-nowrap">  <Update produto={produto} reload={setReload}></Update>{' '} <Delete produto={produto} reload={setReload}></Delete> </td>
+                        <td>{produto.kind}</td>
                     </tr>
+                    )
                 )
-                )}
+            }
                 </tbody>
             </Table>
         </Base>
