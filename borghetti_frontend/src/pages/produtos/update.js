@@ -6,7 +6,7 @@ import { Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
-const Update =  ({produto ,reload}) => {
+const Update =  ({produto ,reload, categorias}) => {
   const [show, setShow] = useState(false);
   const [spin, setSpin] = useState(false);
 
@@ -15,16 +15,16 @@ const Update =  ({produto ,reload}) => {
 
   const produtoid = produto.id;
   const [name, setName] = useState(produto.name);
-  const [descricao, setDescricao] = useState(produto.descricao);
+  const [kind, setKind] = useState(produto.kind);
   const [preco, setPreco] = useState(produto.preco);
 
   const updateProduto = async () => {
     setSpin(true);
-    const produto = { name, descricao, preco };
+    const produto = { name, kind, preco };
     console.log(produto);
     const config = {
       method: 'patch',
-      url: `api/users/${produtoid}/`,
+      url: `api/products/${produtoid}/`,
       headers: {
           'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
       },
@@ -51,13 +51,17 @@ const Update =  ({produto ,reload}) => {
                     <Form.Control type="text" onChange={(e) => setName(e.target.value)} value={name} placeholder="Nome" />
                 </Form.Group>
                 <Form.Group controlId="formBasicDescrição">
-                    <Form.Label>Descrição</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setDescricao(e.target.value)} value={descricao} placeholder="Descrição"  />
+                  <Form.Label>Categoria</Form.Label>
+                  <Form.Select defaultValue={produto.kind} aria-label="Default select example" onChange={(e) => setKind(e.target.value)}>
+                    {categorias.map((categoria) => (
+                    <option key={categoria.id} value={categoria.id}>{categoria.name}</option>
+                    ))}
+                  </Form.Select>
                 </Form.Group>
-                <Form.Group controlId="formBasicPreço">
+                {/* <Form.Group controlId="formBasicPreço">
                     <Form.Label>Preço</Form.Label>
                     <Form.Control type="text" onChange={(e) => setPreco(e.target.value.replace('RS','').replace(' ','').replace(',','.'))} value={'RS ' + preco.replace('.',',')} placeholder="Preço"  />
-                </Form.Group>
+                </Form.Group> */}
             </Form>
 
         </Modal.Body>

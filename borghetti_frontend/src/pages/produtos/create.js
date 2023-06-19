@@ -4,7 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import API from '../../api.js';
 import { Form } from 'react-bootstrap';
 
-const Create =  ({reload}) => {
+const Create =  ({reload, categorias}) => {
   const [show, setShow] = useState(false);
   const [spin, setSpin] = useState(false);
 
@@ -12,12 +12,12 @@ const Create =  ({reload}) => {
   const handleShow = () => setShow(true);
 
   const [name, setName] = useState('');
-  const [descricao, setDescricao] = useState('');
+  const [kind, setKind] = useState('');
   const [preco, setPreco] = useState('');
 
   const createProduto = async () => {
     setSpin(true);
-    const produto = { name, descricao, preco };
+    const produto = { name, kind, preco };
     const config = {
       method: 'post',
       url: 'api/products/',
@@ -47,8 +47,13 @@ const Create =  ({reload}) => {
                     <Form.Control type="text" onChange={(e) => setName(e.target.value)} placeholder="Nome" />
                 </Form.Group>
                 <Form.Group controlId="formBasicDescrição">
-                    <Form.Label>Descrição</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setDescricao(e.target.value)} placeholder="Descrição"  />
+                  <Form.Label>Categoria</Form.Label>
+                  <Form.Select aria-label="Default select example" onChange={(e) => setKind(e.target.value)}>
+                      <option>Selecione uma categoria</option>
+                      {categorias.map((categoria) => (
+                          <option key={categoria.id} value={categoria.id}>{categoria.name}</option>
+                      ))}
+                  </Form.Select>
                 </Form.Group>
                 <Form.Group controlId="formBasicPreço">
                     <Form.Label>Preço</Form.Label>
