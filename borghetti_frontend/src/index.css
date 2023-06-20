@@ -42,3 +42,10 @@ table {
 #MainContainer{
   color: #6B3C34;
 }
+div.accordion-body{
+  padding: 0px;
+  color: #6B3C34;
+}
+.acordion{
+  --bs-accordion-active-bg: #F5EED9 !important;
+}

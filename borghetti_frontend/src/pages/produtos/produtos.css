@@ -26,3 +26,10 @@ h1 {
 #th3Produtos{
     width: 15%;
 }
+#TableProdutos>thead{
+    display: none;
+}
+#TableProdutos>tbody{
+    padding: 0px;
+}
+
