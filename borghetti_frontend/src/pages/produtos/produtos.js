@@ -74,7 +74,7 @@ const Produtos = () => {
                 <Accordion.Item key={index} eventKey={index}>
                     <Accordion.Header>{categoria.name}</Accordion.Header>
                     <Accordion.Body>
-                        <Table striped>
+                        <Table striped id='TableProdutos'>
                             <thead>
                                 <tr>
                                     <th id='th1Produtos'>Nome</th>
