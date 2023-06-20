@@ -48,7 +48,8 @@ except NameError:
 
 LOCAL_APPS += [
     'users',
-    'products'
+    'products',
+    'demands'
 ]
 
 try:

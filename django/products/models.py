@@ -19,6 +19,7 @@ class Product(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     name = models.CharField(verbose_name=_('Nome'), max_length=128)
     kind = models.ForeignKey(ProductType, verbose_name=_('Tipo'), on_delete=models.CASCADE)
+    price = models.DecimalField(verbose_name=_('Preço'), max_digits=10, decimal_places=2, null=True, blank=False)
 
     class Meta:
         verbose_name = _('Produto')
