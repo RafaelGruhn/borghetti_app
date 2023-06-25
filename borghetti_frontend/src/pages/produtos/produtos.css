@@ -32,4 +32,8 @@ h1 {
 #TableProdutos>tbody{
     padding: 0px;
 }
+#TableProdutos{
+    margin: 0;
+    border-left: #F5EED9 solid 3px;
+}
 

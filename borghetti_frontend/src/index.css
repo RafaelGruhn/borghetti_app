@@ -46,6 +46,24 @@ div.accordion-body{
   padding: 0px;
   color: #6B3C34;
 }
-.acordion{
-  --bs-accordion-active-bg: #F5EED9 !important;
+.accordion{
+  border-left: #F5EED9 solid 3px;
+  border-bottom: #F5EED9 solid 3px;
+  border-top: #6B3C34 solid 3px;
+}
+.accordion-button{
+  color: #6B3C34 !important;
+  background-color: #F5EED9 !important;
+}
+.accordion-body{
+  padding: 0px;
+  padding-left: 30px !important;
+}
+.accordion-button:focus{
+  border-color: #6B3C34 !important;
+  box-shadow: 0 0 0 0.25rem #6B3C3425 !important;
+}
+.accordion-item{
+  border: 0px;
+  border-radius: 0px;
 }
