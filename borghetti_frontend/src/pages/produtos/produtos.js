@@ -1,5 +1,6 @@
 // /src/pages/Contact.jscliente
 import React, { useEffect , useState} from 'react'
+import { Navigate } from 'react-router-dom'
 import Base from '../../components/Base'
 import API from '../../api.js';
 import { Table } from 'react-bootstrap';
@@ -22,9 +23,20 @@ const Produtos = () => {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
         };
-        let response = await API(config);
-        console.log(response.data);
-        setCategorias(response.data.results);
+        
+        API(config).then((response) => {
+            console.log(response.data);
+            setCategorias(response.data.results);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 403) {
+                localStorage.removeItem("tokenAccess");
+                localStorage.removeItem("tokenUser");
+                localStorage.removeItem("tokenRefresh");
+                window.location.href = '/login';
+            }
+        });
+
     }
 
     const fetchProdutos = async () => {
@@ -35,9 +47,21 @@ const Produtos = () => {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
         };
-        let response = await API(config);
-        console.log(response.data);
-        setProdutos(response.data.results);
+        // let response = await API(config);
+        // console.log(response.data);
+        // setProdutos(response.data.results);
+        API(config).then((response) => {
+            console.log(response.data);
+            setProdutos(response.data.results);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 403) {
+                localStorage.removeItem("tokenAccess");
+                localStorage.removeItem("tokenUser");
+                localStorage.removeItem("tokenRefresh");
+                window.location.href = '/login';
+            }
+        });
     }
 
     if (reload) {

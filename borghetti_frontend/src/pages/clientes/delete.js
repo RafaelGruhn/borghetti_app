@@ -24,11 +24,20 @@ const Delete =  ({cliente, reload}) => {
       },
       data: cliente
     };
-    let response = await API(config);
-    console.log(response.data);
-    setSpin(false);
-    reload(true);
-    handleClose();
+    API(config).then((response) => {
+      console.log(response.data);
+      setSpin(false);
+      reload(true);
+      handleClose();
+    }).catch((error) => {
+        console.log(error);
+        if (error.response.status === 403) {
+            localStorage.removeItem("tokenAccess");
+            localStorage.removeItem("tokenUser");
+            localStorage.removeItem("tokenRefresh");
+            window.location.href = '/login';
+        }
+    });
   }
 
   return (

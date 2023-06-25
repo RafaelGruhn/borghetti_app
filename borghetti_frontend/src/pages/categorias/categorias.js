@@ -22,9 +22,21 @@ const Categorias = () => {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
         };
-        const response = await API(config);
-        setCategorias(response.data.results);
-        console.log(response.data);
+        // const response = await API(config);
+        // setCategorias(response.data.results);
+        // console.log(response.data);
+        API(config).then((response) => {
+            console.log(response.data);
+            setCategorias(response.data.results);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 403) {
+                localStorage.removeItem("tokenAccess");
+                localStorage.removeItem("tokenUser");
+                localStorage.removeItem("tokenRefresh");
+                window.location.href = '/login';
+            }
+        });
     }
 
     if (reload) {

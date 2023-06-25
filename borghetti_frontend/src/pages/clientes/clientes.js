@@ -24,9 +24,21 @@ const Clientes = () => {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
         };
-        let response = await API(config);
-        setClientes(response.data.results);
-        console.log(response.data);
+        // let response = await API(config);
+        // setClientes(response.data.results);
+        // console.log(response.data);
+        API(config).then((response) => {
+            console.log(response.data);
+            setClientes(response.data.results);
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 403) {
+                localStorage.removeItem("tokenAccess");
+                localStorage.removeItem("tokenUser");
+                localStorage.removeItem("tokenRefresh");
+                window.location.href = '/login';
+            }
+        });
     }
 
     if (reload) {
