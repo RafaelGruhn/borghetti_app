@@ -2,11 +2,8 @@
 import React, { useEffect , useState} from 'react'
 import Base from '../../components/Base'
 import API from '../../api.js';
-import { Table } from 'react-bootstrap';
-import './produtos.css'
-import Delete from './delete';
-import Create from './create';
-import Update from './update';
+import { Table, Button } from 'react-bootstrap';
+import './pedidos.css'
 import { Accordion } from 'react-bootstrap';
 
 const Produtos = () => {
@@ -15,6 +12,7 @@ const Produtos = () => {
     const [reload, setReload] = useState(false);
 
     const fetchCategorias = async () => {
+        
         const config = {
             method: 'get',
             url: 'api/product-types/',
@@ -49,9 +47,11 @@ const Produtos = () => {
         // let response = await API(config);
         // console.log(response.data);
         // setProdutos(response.data.results);
+
+
         API(config).then((response) => {
             console.log(response.data);
-            setProdutos(response.data.results);
+            setProdutos(response.data.results.map((produto) => ({...produto, quantidade: 0})));
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 403) {
@@ -61,6 +61,36 @@ const Produtos = () => {
                 window.location.href = '/login';
             }
         });
+    }
+    const handleCriarPedido = () => {
+        const user = JSON.parse(localStorage.getItem('tokenUser'))
+        console.log(user)
+        const produtctsList = produtos.filter(produto => produto.quantidade > 0).map((produto) => ({product: produto.id, quantity: produto.quantidade}));
+        const newPedido = {"client": user.id, "products": produtctsList}
+        console.log(newPedido);
+        const config = {
+            method: 'post',
+            url: 'api/demands/',
+            headers: {
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+            },
+            data: newPedido,
+        };
+        API(config).then((response) => {
+            console.log(response.data);
+            window.location.href = '/pedidos';
+        }).catch((error) => {
+            console.log(error);
+            if (error.response.status === 403) {
+                localStorage.removeItem("tokenAccess");
+                localStorage.removeItem("tokenUser");
+                localStorage.removeItem("tokenRefresh");
+                window.location.href = '/login';
+            }
+        }
+        );
+
+
     }
 
     if (reload) {
@@ -78,8 +108,8 @@ const Produtos = () => {
     return (
         <Base>
             <div className='ProductsHeader'>
-            <h1>Produtos</h1>
-                <Create categorias={categorias} reload={setReload}></Create>
+            <h1>Criar Pedido</h1>
+                <Button variant="success" onClick={handleCriarPedido}>Criar Pedido</Button>
             </div>
             <Accordion defaultActiveKey="0" alwaysOpen>
                 {categorias.map((categoria, index) => (
@@ -99,7 +129,23 @@ const Produtos = () => {
                                 <tr key={produto.id}>
                                     <td className='td1Produtos'>{produto.name}</td>
                                     <td className='td2Produtos text-nowrap'>{produto.price ? "RS " + produto.price.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
-                                    <td className="text-nowrap">  <Update produto={produto} categorias={categorias} reload={setReload}></Update>{' '} <Delete produto={produto} reload={setReload}></Delete> </td>
+                                    <td className="text-nowrap">
+                                        <>Quantidade: </> 
+                                        <input className='inputQuantidade' type='number' 
+                                        onChange={e => (setProdutos(
+                                            produtos.map((produtoMap) => {
+                                                if (produtoMap.id === produto.id) {
+                                                    if (e.target.value >= 0) {
+                                                        console.log(e.target.value);
+                                                        produtoMap.quantidade = e.target.value;
+                                                    }
+                                                }
+                                                return produtoMap;
+                                            }
+                                            )))} 
+                                            value={produto.quantidade}>
+                                        </input>
+                                    </td>
                                 </tr>
                                 ))}
                             </tbody>

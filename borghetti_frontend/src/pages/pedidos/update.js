@@ -6,29 +6,30 @@ import { Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPencil } from '@fortawesome/free-solid-svg-icons'
 
-const Update =  ({cliente ,reload}) => {
+const Update =  ({produto ,reload, categorias}) => {
   const [show, setShow] = useState(false);
   const [spin, setSpin] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const clienteid = cliente.id;
-  const [username, setUserName] = useState(cliente.username);
-  const [first_name, setFirstName] = useState(cliente.first_name);
-  const [last_name, setLastName] = useState(cliente.last_name);
+  const produtoid = produto.id;
+  const [name, setName] = useState(produto.name);
+  const [kind, setKind] = useState(produto.kind);
+  const [preco, setPreco] = useState(produto.preco ? 'RS ' + produto.preco.replace('.',','): 'RS 0,00');
+  console.log(produto);
 
-  const updatecliente = async () => {
+  const updateProduto = async () => {
     setSpin(true);
-    const cliente = { username, first_name, last_name };
-    console.log(cliente);
+    const newproduto = { name, kind, 'price': preco.replace('RS','').replace(' ','').replace(',','.') };
+    console.log(produto);
     const config = {
       method: 'patch',
-      url: `api/users/${clienteid}/`,
+      url: `api/products/${produtoid}/`,
       headers: {
           'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
       },
-      data: cliente
+      data: newproduto
     };
     API(config).then((response) => {
       console.log(response.data);
@@ -51,29 +52,34 @@ const Update =  ({cliente ,reload}) => {
       <Button onClick={handleShow} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>{' '}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Novo Cliente</Modal.Title>
+          <Modal.Title>Novo Produto</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="formBasicUsername">
-                <Form.Label>Usuário</Form.Label>
-                <Form.Control type="text" onChange={(e) => setUserName(e.target.value)} value={username} placeholder="Usuário" />
-            </Form.Group>
-            <Form.Group controlId="formBasicFirstName">
-                <Form.Label>Nome</Form.Label>
-                <Form.Control type="text" onChange={(e) => setFirstName(e.target.value)} value={first_name} placeholder="Nome" />
-            </Form.Group>
-            <Form.Group controlId="formBasicLastName">
-                <Form.Label>Sobrenome</Form.Label>
-                <Form.Control type="text" onChange={(e) => setLastName(e.target.value)} value={last_name} placeholder="Sobrenome" />
-            </Form.Group>
-          </Form>
+            <Form>
+                <Form.Group controlId="formBasicName">
+                    <Form.Label>Nome</Form.Label>
+                    <Form.Control type="text" onChange={(e) => setName(e.target.value)} value={name} placeholder="Nome" />
+                </Form.Group>
+                <Form.Group controlId="formBasicDescrição">
+                  <Form.Label>Categoria</Form.Label>
+                  <Form.Select defaultValue={produto.kind} aria-label="Default select example" onChange={(e) => setKind(e.target.value)}>
+                    {categorias.map((categoria) => (
+                    <option key={categoria.id} value={categoria.id}>{categoria.name}</option>
+                    ))}
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group controlId="formBasicPreço">
+                    <Form.Label>Preço</Form.Label>
+                    <Form.Control type="text" onChange={(e) => setPreco(e.target.value)} value={preco} placeholder="Preço"  />
+                </Form.Group>
+            </Form>
+
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="warning" onClick={updatecliente}>
+          <Button variant="warning" onClick={updateProduto}>
             {spin ? <span className="spinner-border spinner-border-sm mr-2"></span> : 'Atualizar'}
           </Button>
         </Modal.Footer>

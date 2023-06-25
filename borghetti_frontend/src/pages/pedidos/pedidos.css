@@ -34,7 +34,7 @@ h1 {
     border-left: #F5EED9 solid 3px;
 }
 .td1Produtos{
-    width: 70%;
+    width: 80%;
     padding: 0px;
     border: none;
 }
@@ -44,4 +44,7 @@ h1 {
     border: none;
     color: #025e02 !important;
     font-weight: 700;
+}
+.inputQuantidade{
+    width: 50px;
 }

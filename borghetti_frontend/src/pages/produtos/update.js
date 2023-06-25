@@ -16,11 +16,12 @@ const Update =  ({produto ,reload, categorias}) => {
   const produtoid = produto.id;
   const [name, setName] = useState(produto.name);
   const [kind, setKind] = useState(produto.kind);
-  const [preco, setPreco] = useState(produto.preco);
+  const [preco, setPreco] = useState(produto.preco ? 'RS ' + produto.preco .replace('.',','): 'RS 0,00');
+  console.log(produto);
 
   const updateProduto = async () => {
     setSpin(true);
-    const produto = { name, kind, preco };
+    const newproduto = { name, kind, 'price': preco.replace('RS','').replace(' ','').replace(',','.') };
     console.log(produto);
     const config = {
       method: 'patch',
@@ -28,7 +29,7 @@ const Update =  ({produto ,reload, categorias}) => {
       headers: {
           'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
       },
-      data: produto
+      data: newproduto
     };
     API(config).then((response) => {
       console.log(response.data);
@@ -67,10 +68,10 @@ const Update =  ({produto ,reload, categorias}) => {
                     ))}
                   </Form.Select>
                 </Form.Group>
-                {/* <Form.Group controlId="formBasicPreço">
+                <Form.Group controlId="formBasicPreço">
                     <Form.Label>Preço</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setPreco(e.target.value.replace('RS','').replace(' ','').replace(',','.'))} value={'RS ' + preco.replace('.',',')} placeholder="Preço"  />
-                </Form.Group> */}
+                    <Form.Control type="text" onChange={(e) => setPreco(e.target.value)} value={preco} placeholder="Preço"  />
+                </Form.Group>
             </Form>
 
         </Modal.Body>
