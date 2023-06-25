@@ -56,17 +56,8 @@ const Produtos = () => {
 
     return (
         <Base>
-            <h1>Produtos</h1>
             <div className='ProductsHeader'>
-                <Form className="searchForm d-flex">
-                    <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="mr-2"
-                    aria-label="Search"
-                    />
-                <Button variant="outline-success"><FontAwesomeIcon icon={faMagnifyingGlass}/></Button>
-            </Form>
+            <h1>Produtos</h1>
                 <Create categorias={categorias} reload={setReload}></Create>
             </div>
             <Accordion defaultActiveKey="0" alwaysOpen>

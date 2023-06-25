@@ -43,17 +43,8 @@ const Clientes = () => {
 
     return (
         <Base>
-            <h1>Clientes</h1>
             <div className='ClientesHeader'>
-                <Form className="searchForm d-flex">
-                    <Form.Control
-                    type="search"
-                    placeholder="Search"
-                    className="mr-2"
-                    aria-label="Search"
-                    />
-                <Button variant="outline-success"><FontAwesomeIcon icon={faMagnifyingGlass}/></Button>
-            </Form>
+            <h1>Clientes</h1>
                 <Create reload={setReload}></Create>
             </div>
                 <Table striped>
