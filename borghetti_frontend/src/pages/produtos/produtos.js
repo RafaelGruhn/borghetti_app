@@ -2,10 +2,8 @@
 import React, { useEffect , useState} from 'react'
 import Base from '../../components/Base'
 import API from '../../api.js';
-import { Table, Button, Form } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import './produtos.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
 import Delete from './delete';
 import Create from './create';
 import Update from './update';
