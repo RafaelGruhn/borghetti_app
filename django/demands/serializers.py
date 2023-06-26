@@ -25,3 +25,19 @@ class DemandSerializer(serializers.ModelSerializer):
         for product in products_data:
             DemandProduct.objects.create(demand=demand, **product)
         return demand
+
+    def update(self, instance, validated_data):
+        products_data = validated_data.pop('products')
+        super().update(instance, validated_data)
+        product_list = []
+        for product in products_data:
+            if product.get('id') is None:
+                product_list.append(DemandProduct.objects.create(demand=instance, **product).id)
+            else:
+                demand_product = DemandProduct.objects.get(id=product['id'])
+                demand_product.product = product['product']
+                demand_product.quantity = product['quantity']
+                demand_product.save()
+                product_list.append(demand_product.id)
+        DemandProduct.objects.filter(demand=instance).exclude(id__in=product_list).delete()
+        return instance
