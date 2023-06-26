@@ -13,7 +13,7 @@ class DemandProductSerializer(serializers.ModelSerializer):
 
 class DemandSerializer(serializers.ModelSerializer):
     """Demand serializer."""
-    products = DemandProductSerializer(many=True, read_only=False, source='get_products')
+    products = DemandProductSerializer(many=True, read_only=False)
 
     class Meta:
         model = Demand
