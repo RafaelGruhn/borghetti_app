@@ -2,9 +2,10 @@
 import React, { useEffect , useState} from 'react'
 import Base from '../../components/Base'
 import API from '../../api.js';
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import './pedidos.css'
 import { Accordion } from 'react-bootstrap';
+import PromptCreatePedidos from './promptCreatePedidos.js';
 
 const Produtos = () => {
     const [categorias, setCategorias] = useState([]);
@@ -62,36 +63,7 @@ const Produtos = () => {
             }
         });
     }
-    const handleCriarPedido = () => {
-        const user = JSON.parse(localStorage.getItem('tokenUser'))
-        console.log(user)
-        const produtctsList = produtos.filter(produto => produto.quantidade > 0).map((produto) => ({product: produto.id, quantity: produto.quantidade}));
-        const newPedido = {"client": user.id, "products": produtctsList}
-        console.log(newPedido);
-        const config = {
-            method: 'post',
-            url: 'api/demands/',
-            headers: {
-                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
-            },
-            data: newPedido,
-        };
-        API(config).then((response) => {
-            console.log(response.data);
-            window.location.href = '/pedidos';
-        }).catch((error) => {
-            console.log(error);
-            if (error.response.status === 403) {
-                localStorage.removeItem("tokenAccess");
-                localStorage.removeItem("tokenUser");
-                localStorage.removeItem("tokenRefresh");
-                window.location.href = '/login';
-            }
-        }
-        );
 
-
-    }
 
     if (reload) {
         setReload(false);
@@ -108,8 +80,8 @@ const Produtos = () => {
     return (
         <Base>
             <div className='ProductsHeader'>
-            <h1>Criar Pedido</h1>
-                <Button variant="success" onClick={handleCriarPedido}>Criar Pedido</Button>
+                <h1>Criar Pedido</h1>
+                <PromptCreatePedidos produtos={produtos} />
             </div>
             <Accordion defaultActiveKey="0" alwaysOpen>
                 {categorias.map((categoria, index) => (
