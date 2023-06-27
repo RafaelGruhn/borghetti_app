@@ -17,28 +17,28 @@ h1 {
     width: 160px;
     height: 50px;
 }
-#th1Pedidos{
+#th1Produtos{
     width: 30%;
 }
-#th2Pedidos{
+#th2Produtos{
     width: 70%;
 }
-#TablePedidos>thead{
+#TableProdutos>thead{
     display: none;
 }
-#TablePedidos>tbody{
+#TableProdutos>tbody{
     padding: 0px;
 }
-#TablePedidos{
+#TableProdutos{
     margin: 0;
     border-left: #F5EED9 solid 3px;
 }
-.td1Pedidos{
+.td1Produtos{
     width: 80%;
     padding: 0px;
     border: none;
 }
-.td2Pedidos{
+.td2Produtos{
     width: 10%;
     padding: 0px;
     border: none;

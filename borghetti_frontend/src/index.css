@@ -38,6 +38,7 @@ table {
   border: 0px;
   border-collapse: collapse;
   width: 100%;
+  border-top: #6B3C34 solid 3px !important;
 }
 #MainContainer{
   color: #6B3C34;

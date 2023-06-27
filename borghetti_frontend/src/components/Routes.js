@@ -8,6 +8,7 @@ import Login from '../pages/login'
 import Logout from '../pages/logout'
 import Categorias from '../pages/categorias'
 import Clientes from '../pages/clientes'
+import CriarPedido from '../pages/criarPedido'
 
 const AppRoutes = ({token, setToken}) => {
     const tokenUser = JSON.parse(localStorage.getItem('tokenUser'))
@@ -16,6 +17,7 @@ const AppRoutes = ({token, setToken}) => {
         return (
             <Routes>
                 <Route path="pedidos" element={<Pedidos />} />
+                <Route path="pedidos/novo/" element={<CriarPedido />} />
                 <Route path="produtos" element={<Produtos />} />
                 <Route path="categorias" element={<Categorias />} />
                 <Route path="clientes" element={<Clientes />} />
