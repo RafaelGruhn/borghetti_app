@@ -19,6 +19,15 @@ class DemandSerializer(serializers.ModelSerializer):
         model = Demand
         fields = ('id', 'client', 'status', 'products', 'created_at', 'updated_at')
 
+    def validate(self, attrs):
+        request = self.context.get('request', None)
+        if request:
+            if request.user.is_superuser:
+                return super().validate(attrs)
+            if attrs.get('client') != request.user:
+                raise serializers.ValidationError('You can only create demands for yourself.')
+        return super().validate(attrs)
+
     def create(self, validated_data):
         products_data = validated_data.pop('products')
         demand = Demand.objects.create(**validated_data)
