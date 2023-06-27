@@ -27,3 +27,15 @@ table{
     margin-bottom: 20px;
     justify-content: end;
 }
+.theadClientes{
+    display: none;
+}
+.td1Clientes{
+    width: 30%;
+}
+.td2Clientes{
+    width: 35%;
+}
+.td3Clientes{
+    width: 40%;
+}

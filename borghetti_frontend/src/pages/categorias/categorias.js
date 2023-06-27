@@ -56,7 +56,7 @@ const Categorias = () => {
                 <Create reload={setReload}></Create>
             </div>
                 <Table striped>
-                    <thead>
+                    <thead style={{display:'none'}}>
                         <tr>
                             <th id='th1Categorias'>Nome</th>
                             <th id='th2Categorias'>Ações</th>
@@ -65,7 +65,7 @@ const Categorias = () => {
                     <tbody>
             {categorias.map((categoria) => ( 
                     <tr key={categoria.id}>
-                        <td>{categoria.name}</td>
+                        <td className='td1Categorias'>{categoria.name}</td>
                         <td className="text-nowrap">  <Update categoria={categoria} reload={setReload}></Update>{' '} <Delete categoria={categoria} reload={setReload}></Delete> </td>
                     </tr>
                 )

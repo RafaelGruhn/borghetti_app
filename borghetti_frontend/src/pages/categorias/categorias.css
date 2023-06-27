@@ -29,5 +29,8 @@ table{
 }
 
 #th1Categorias{
+    width: 99%;
+}
+.td1Categorias{
     width: 90%;
 }
