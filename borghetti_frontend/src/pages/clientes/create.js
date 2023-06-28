@@ -33,7 +33,10 @@ const Create =  ({reload}) => {
       return;
     }
     setSpin(true);
-    const cliente = { username, first_name, last_name };
+    var cliente = { username, first_name, last_name };
+    if (password !== '') {
+      cliente = {...cliente, password};
+    }
     console.log(cliente);
     // const response = await axios.post('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/clientes', cliente);
     const config = {
