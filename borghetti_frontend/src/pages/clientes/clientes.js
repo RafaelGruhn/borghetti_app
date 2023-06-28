@@ -29,7 +29,11 @@ const Clientes = () => {
         // console.log(response.data);
         API(config).then((response) => {
             console.log(response.data);
-            setClientes(response.data.results);
+            setClientes(response.data.results.sort( (a,b) => {
+                var textA = a.first_name.toUpperCase();
+                var textB = b.first_name.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;                
+            }));
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 403) {

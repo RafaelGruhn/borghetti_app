@@ -27,7 +27,11 @@ const Categorias = () => {
         // console.log(response.data);
         API(config).then((response) => {
             console.log(response.data);
-            setCategorias(response.data.results);
+            setCategorias(response.data.results.sort( (a,b) => {
+                var textA = a.name.toUpperCase();
+                var textB = b.name.toUpperCase();
+                return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;                
+            }));
         }).catch((error) => {
             console.log(error);
             if (error.response.status === 403) {
