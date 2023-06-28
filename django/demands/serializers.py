@@ -17,7 +17,7 @@ class DemandSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Demand
-        fields = ('id', 'client', 'status', 'products', 'created_at', 'updated_at')
+        fields = ('id', 'client', 'status', 'products', 'created_at', 'updated_at', 'demand_date')
 
     def validate(self, attrs):
         request = self.context.get('request', None)
