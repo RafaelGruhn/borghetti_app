@@ -104,7 +104,7 @@ const CriarPedido = () => {
                 <Accordion.Item key={index} eventKey={index}>
                     <Accordion.Header>{categoria.name}</Accordion.Header>
                     <Accordion.Body>
-                        <Table striped id='TableCriaPedido'>
+                        <Table responsive striped id='TableCriaPedido'>
                             <thead>
                                 <tr>
                                     <th id='th1Produtos'>Nome</th>
@@ -119,7 +119,7 @@ const CriarPedido = () => {
                                     <td className='td2Produtos text-nowrap'>{produto.price ? "RS " + produto.price.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
                                     <td style={{width:0}} className="text-nowrap"> 
                                         <div className="divTableButtons">
-                                            <text style={{paddingRight:'20px'}}>Quantidade: </text> 
+                                            <text style={{paddingRight:'20px'}}>quantia: </text> 
                                             <Form.Control style={{width:'80px'}} className='inputQuantidade' type='number'
                                             onChange={e => (setProdutos(
                                                 produtos.map((produtoMap) => {

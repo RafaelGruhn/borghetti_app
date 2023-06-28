@@ -59,7 +59,7 @@ const Categorias = () => {
             <h1>Categorias</h1>
                 <Create reload={setReload}></Create>
             </div>
-                <Table striped>
+                <Table responsive striped>
                     <thead style={{display:'none'}}>
                         <tr>
                             <th>Nome</th>

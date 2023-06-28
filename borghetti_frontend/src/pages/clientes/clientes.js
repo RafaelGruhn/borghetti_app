@@ -61,7 +61,7 @@ const Clientes = () => {
             <h1>Clientes</h1>
                 <Create reload={setReload}></Create>
             </div>
-                <Table striped>
+                <Table responsive striped>
                     <thead className='theadClientes'>
                         <tr>
                             <th></th>

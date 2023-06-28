@@ -127,7 +127,7 @@ const Pedidos = () => {
                 <h1>Pedidos</h1>
                 <Button className='btnInsert' variant="success" onClick={() => window.location.href = '/pedidos/novo'}>Novo Pedido</Button>
             </div>
-                <Table striped id='TablePedidos'>
+                <Table responsive striped id='TablePedidos'>
                     <thead>
                         <tr>
                             <th id='th1Pedidos'>Nome</th>
@@ -137,12 +137,12 @@ const Pedidos = () => {
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {pedidos.map((pedido) => ( 
                         <tr key={pedido.id}>
                             <td>{pedido.client ? pedido.client.first_name + ' ' +  pedido.client.last_name :'' }</td>
                             <td>{pedido.total ? "RS " + pedido.total.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
-                            <td>{pedido.created_at.slice(8,10) + "/" + pedido.created_at.slice(5,7) + "/" + pedido.created_at.slice(0,4)}</td>
+                            <td>{pedido.demand_date.slice(8,10) + "/" + pedido.demand_date.slice(5,7) + "/" + pedido.demand_date.slice(0,4)}</td>
                             <td>{status[pedido.status]} </td>
                             <td style={{width:0}} className="text-nowrap"> 
                                 <div className="divTableButtons">
