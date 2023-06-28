@@ -123,8 +123,8 @@ const Pedidos = () => {
 
     return (
         <Base>
-            <div className='ProductsHeader'>
-                <h1>Pedidos</h1>
+            <div className='ProductsHeader BaseHeader'>
+                <h2>Pedidos</h2>
                 <Button className='btnInsert' variant="success" onClick={() => window.location.href = '/pedidos/novo'}>Novo Pedido</Button>
             </div>
                 <Table responsive striped id='TablePedidos'>

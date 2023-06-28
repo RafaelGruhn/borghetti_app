@@ -57,8 +57,8 @@ const Clientes = () => {
 
     return (
         <Base>
-            <div className='ClientesHeader'>
-            <h1>Clientes</h1>
+            <div className='ClientesHeader BaseHeader'>
+            <h2>Clientes</h2>
                 <Create reload={setReload}></Create>
             </div>
                 <Table responsive striped>

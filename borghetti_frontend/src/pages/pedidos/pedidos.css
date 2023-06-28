@@ -12,11 +12,7 @@ h1 {
 .searchForm{
     max-width: 50vw;
 }
-.btnInsert{
-    max-width: 50vw;
-    width: 160px;
-    height: 50px;
-}
+
 #th1Pedidos{
     width: 30%;
 }

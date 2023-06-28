@@ -81,8 +81,8 @@ const Produtos = () => {
 
     return (
         <Base>
-            <div className='ProductsHeader'>
-            <h1>Produtos</h1>
+            <div className='ProductsHeader BaseHeader'>
+                <h2>Produtos</h2>
                 <Create categorias={categorias} reload={setReload}></Create>
             </div>
             <Accordion defaultActiveKey="0" alwaysOpen>

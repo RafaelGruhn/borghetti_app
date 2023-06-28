@@ -91,8 +91,8 @@ const CriarPedido = () => {
 
     return (
         <Base>
-            <div className='ProductsHeader'>
-                <h1>Criar Pedido</h1>
+            <div className='ProductsHeader BaseHeader'>
+                <h2>Criar Pedido</h2>
                 <div style={{display:'flex'}}>
                     <Form.Control type="date" placeholder="Data" className='inputData' min={getMinDate()}
                         onChange={e => setData(e.target.value)} value={data}/>

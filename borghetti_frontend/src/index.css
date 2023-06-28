@@ -76,3 +76,24 @@ div.accordion-body{
 .divTableButtons>button{
   margin-left: 10px;
 }
+@media (min-width: 1000px) {
+  .btnInsert{
+    max-width: 50vw;
+    width: 160px;
+    height: 50px;
+  }
+}
+@media (max-width: 1000px) {
+  .BaseHeader{
+    padding-top: 40px;
+  }
+}
+@media (max-width: 500px) {
+  .BaseHeader > div{
+    flex-direction: column;
+  }
+  .BaseHeader > div > *{
+    margin-bottom: 10px;
+  }
+}
+  
