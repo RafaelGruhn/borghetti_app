@@ -99,7 +99,7 @@ const Produtos = () => {
                                 <tr key={produto.id}>
                                     <td className='td1Produtos'>{produto.name}</td>
                                     <td className='td2Produtos text-nowrap'>{produto.price ? "RS " + produto.price.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
-                                    <td className="text-nowrap">  <Update produto={produto} categorias={categorias} reload={setReload}></Update>{' '} <Delete produto={produto} reload={setReload}></Delete> </td>
+                                    <td style={{width:0}} className="text-nowrap"> <div className="divTableButtons"><Update produto={produto} categorias={categorias} reload={setReload}></Update>{' '} <Delete produto={produto} reload={setReload}></Delete> </div></td>
                                 </tr>
                                 ))}
                             </tbody>

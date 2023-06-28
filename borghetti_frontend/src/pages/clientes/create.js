@@ -14,8 +14,24 @@ const Create =  ({reload}) => {
   const [username, setUserName] = useState('');
   const [first_name, setFirstName] = useState('');
   const [last_name, setLastName] = useState('');
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [validated, setValidated] = useState(false);
 
-  const createCliente = async () => {
+  const createCliente = async (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      setSpin(false);
+      setValidated(true);
+      return;
+    }
+    if (password !== password2) {
+      alert('Senhas não conferem!');
+      setSpin(false);
+      return;
+    }
     setSpin(true);
     const cliente = { username, first_name, last_name };
     console.log(cliente);
@@ -29,6 +45,7 @@ const Create =  ({reload}) => {
       data: cliente
     };
     API(config).then((response) => {
+      
       console.log(response.data);
       setSpin(false);
       reload(true);
@@ -52,27 +69,34 @@ const Create =  ({reload}) => {
           <Modal.Title>Novo Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-            <Form>
+            <Form id='FormCreateClient' noValidate validated={validated} onSubmit={createCliente}>
                 <Form.Group controlId="formBasicUsername">
                     <Form.Label>Usuário</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Usuário" />
+                    <Form.Control required type="text" onChange={(e) => setUserName(e.target.value)} placeholder="Usuário" />
                 </Form.Group>
                 <Form.Group controlId="formBasicFirstName">
                     <Form.Label>Nome</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="Nome" />
+                    <Form.Control required type="text" onChange={(e) => setFirstName(e.target.value)} placeholder="Nome" />
                 </Form.Group>
                 <Form.Group controlId="formBasicLastName">
                     <Form.Label>Sobrenome</Form.Label>
-                    <Form.Control type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Sobrenome" />
+                    <Form.Control required type="text" onChange={(e) => setLastName(e.target.value)} placeholder="Sobrenome" />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Senha</Form.Label>
+                    <Form.Control required type="password" onChange={(e) => setPassword(e.target.value)} placeholder="Senha" />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword2">
+                    <Form.Label>Confirme a Senha</Form.Label>
+                    <Form.Control required type="password" onChange={(e) => setPassword2(e.target.value)} placeholder="Senha" />
                 </Form.Group>
             </Form>
-
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="success" onClick={createCliente}>
+          <Button type='submit' form='FormCreateClient' variant="success">
             {spin ? <span className="spinner-border spinner-border-sm mr-2"></span> : 'Salvar'} 
           </Button>
         </Modal.Footer>

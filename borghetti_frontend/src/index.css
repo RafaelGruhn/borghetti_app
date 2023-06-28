@@ -68,3 +68,11 @@ div.accordion-body{
   border: 0px;
   border-radius: 0px;
 }
+.divTableButtons{
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.divTableButtons>button{
+  margin-left: 10px;
+}

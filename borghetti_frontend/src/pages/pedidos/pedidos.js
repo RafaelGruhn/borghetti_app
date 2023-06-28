@@ -4,6 +4,9 @@ import Base from '../../components/Base'
 import API from '../../api.js';
 import { Table, Button } from 'react-bootstrap';
 import './pedidos.css'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {faPencil, faTrash, faPrint } from '@fortawesome/free-solid-svg-icons'
+
 
 const status = {'pending': 'Pendente', 'in_progress': 'Em andamento', 'done': 'Finalizado'}
 
@@ -113,7 +116,7 @@ const Pedidos = () => {
         <Base>
             <div className='ProductsHeader'>
                 <h1>Pedidos</h1>
-                <Button className='btnInsert' variant="primary" onClick={() => window.location.href = '/pedidos/novo'}>Novo Pedido</Button>
+                <Button className='btnInsert' variant="success" onClick={() => window.location.href = '/pedidos/novo'}>Novo Pedido</Button>
             </div>
                 <Table striped id='TablePedidos'>
                     <thead>
@@ -122,15 +125,23 @@ const Pedidos = () => {
                             <th id='th2Pedidos'>Descrição</th>
                             <th id='th3Pedidos'>Ações</th>
                             <th id='th4Pedidos'>Ações</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {pedidos.map((pedido) => ( 
                         <tr key={pedido.id}>
-                            <td className='td1pedidos'>{pedido.client ? pedido.client.first_name + pedido.client.last_name :'' }</td>
-                            <td className='td2pedidos text-nowrap'>{pedido.total ? "RS " + pedido.total.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
-                            <td className="td3pedidos">{pedido.created_at.slice(8,10) + "/" + pedido.created_at.slice(5,7) + "/" + pedido.created_at.slice(0,4)}</td>
-                            <td className="text-nowrap">{status[pedido.status]} </td>
+                            <td>{pedido.client ? pedido.client.first_name + pedido.client.last_name :'' }</td>
+                            <td>{pedido.total ? "RS " + pedido.total.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
+                            <td>{pedido.created_at.slice(8,10) + "/" + pedido.created_at.slice(5,7) + "/" + pedido.created_at.slice(0,4)}</td>
+                            <td>{status[pedido.status]} </td>
+                            <td style={{width:0}} className="text-nowrap"> 
+                                <div className="divTableButtons">
+                                    <Button onClick={null} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>
+                                    <Button onClick={null} variant="outline-danger"><FontAwesomeIcon icon={faTrash} /></Button>
+                                    <Button onClick={null} variant="outline-success"><FontAwesomeIcon icon={faPrint} /></Button>
+                                </div>  
+                            </td>
                         </tr>
                         ))}
                     </tbody>

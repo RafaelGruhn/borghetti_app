@@ -58,15 +58,15 @@ const Categorias = () => {
                 <Table striped>
                     <thead style={{display:'none'}}>
                         <tr>
-                            <th id='th1Categorias'>Nome</th>
-                            <th id='th2Categorias'>Ações</th>
+                            <th>Nome</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
             {categorias.map((categoria) => ( 
                     <tr key={categoria.id}>
-                        <td className='td1Categorias'>{categoria.name}</td>
-                        <td className="text-nowrap">  <Update categoria={categoria} reload={setReload}></Update>{' '} <Delete categoria={categoria} reload={setReload}></Delete> </td>
+                        <td>{categoria.name}</td>
+                        <td style={{width:0}} className="text-nowrap"> <div className="divTableButtons">  <Update categoria={categoria} reload={setReload}></Update>{' '} <Delete categoria={categoria} reload={setReload}></Delete> </div> </td>
                     </tr>
                 )
                 )}

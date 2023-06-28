@@ -17,18 +17,37 @@ const Update =  ({cliente ,reload}) => {
   const [username, setUserName] = useState(cliente.username);
   const [first_name, setFirstName] = useState(cliente.first_name);
   const [last_name, setLastName] = useState(cliente.last_name);
+  const [password, setPassword] = useState('');
+  const [password2, setPassword2] = useState('');
+  const [validated, setValidated] = useState(false);
 
-  const updatecliente = async () => {
+  const updatecliente = async (e) => {
+    const form = e.currentTarget;
+    if (form.checkValidity() === false) {
+      e.preventDefault();
+      e.stopPropagation();
+      setSpin(false);
+      setValidated(true);
+      return;
+    }
+    if (password !== password2) {
+      alert('Senhas não conferem!');
+      setSpin(false);
+      return;
+    }
     setSpin(true);
-    const cliente = { username, first_name, last_name };
-    console.log(cliente);
+    var newcliente = { clienteid, username, first_name, last_name };
+    if (password !== '') {
+      newcliente = { ...newcliente, password };
+    }
+      console.log(cliente);
     const config = {
       method: 'patch',
       url: `api/users/${clienteid}/`,
       headers: {
           'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
       },
-      data: cliente
+      data: newcliente
     };
     API(config).then((response) => {
       console.log(response.data);
@@ -51,29 +70,37 @@ const Update =  ({cliente ,reload}) => {
       <Button onClick={handleShow} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>{' '}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Novo Cliente</Modal.Title>
+          <Modal.Title>Alterar Cliente</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="formBasicUsername">
-                <Form.Label>Usuário</Form.Label>
-                <Form.Control type="text" onChange={(e) => setUserName(e.target.value)} value={username} placeholder="Usuário" />
-            </Form.Group>
-            <Form.Group controlId="formBasicFirstName">
-                <Form.Label>Nome</Form.Label>
-                <Form.Control type="text" onChange={(e) => setFirstName(e.target.value)} value={first_name} placeholder="Nome" />
-            </Form.Group>
-            <Form.Group controlId="formBasicLastName">
-                <Form.Label>Sobrenome</Form.Label>
-                <Form.Control type="text" onChange={(e) => setLastName(e.target.value)} value={last_name} placeholder="Sobrenome" />
-            </Form.Group>
-          </Form>
+        <Form id='FormUpdateClient' noValidate validated={validated} onSubmit={updatecliente}>
+                <Form.Group controlId="formBasicUsername">
+                    <Form.Label>Usuário</Form.Label>
+                    <Form.Control required type="text" onChange={(e) => setUserName(e.target.value)} value={username} placeholder="Usuário" />
+                </Form.Group>
+                <Form.Group controlId="formBasicFirstName">
+                    <Form.Label>Nome</Form.Label>
+                    <Form.Control required type="text" onChange={(e) => setFirstName(e.target.value)} value={first_name} placeholder="Nome" />
+                </Form.Group>
+                <Form.Group controlId="formBasicLastName">
+                    <Form.Label>Sobrenome</Form.Label>
+                    <Form.Control required type="text" onChange={(e) => setLastName(e.target.value)} value={last_name} placeholder="Sobrenome" />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword">
+                    <Form.Label>Senha</Form.Label>
+                    <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Deixe vazio para não alterar" />
+                </Form.Group>
+                <Form.Group controlId="formBasicPassword2">
+                    <Form.Label>Confirme a Senha</Form.Label>
+                    <Form.Control type="password" onChange={(e) => setPassword2(e.target.value)} value={password2} placeholder="Deixe vazio para não alterar"  />
+                </Form.Group>
+            </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={handleClose}>
             Cancelar
           </Button>
-          <Button variant="warning" onClick={updatecliente}>
+          <Button type='submit' variant="warning" form='FormUpdateClient'>
             {spin ? <span className="spinner-border spinner-border-sm mr-2"></span> : 'Atualizar'}
           </Button>
         </Modal.Footer>

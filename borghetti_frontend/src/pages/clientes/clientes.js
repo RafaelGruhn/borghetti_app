@@ -60,19 +60,19 @@ const Clientes = () => {
                 <Table striped>
                     <thead className='theadClientes'>
                         <tr>
-                            <th id='th1Clientes'>Usuário</th>
-                            <th id='th3Clientes'>Nome</th>
-                            <th id='th4Clientes'>Sobrenome</th>
-                            <th id='th2Clientes'>Ações</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
             {Clientes.map((cliente) => ( 
                     <tr key={cliente.id}>
-                        <td className='td1Clientes'>{cliente.username}</td>
-                        <td className='td2Clientes'>{cliente.first_name}</td>
-                        <td className='td3Clientes'>{cliente.last_name}</td>
-                        <td className="text-nowrap">  <Update cliente={cliente} reload={setReload}></Update>{' '} <Delete cliente={cliente} reload={setReload}></Delete> </td>
+                        <td>{cliente.username}</td>
+                        <td>{cliente.first_name}</td>
+                        <td>{cliente.last_name}</td>
+                        <td style={{width:0}} className="text-nowrap"> <div className="divTableButtons">  <Update cliente={cliente} reload={setReload}></Update>{' '} <Delete cliente={cliente} reload={setReload}></Delete> </div> </td>
                     </tr>
                 )
                 )}
