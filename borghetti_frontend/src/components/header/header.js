@@ -8,7 +8,12 @@ import './header.css'
 
 import './header.css'
 
-let pages=[ "Pedidos", "Produtos", "Categorias", "Clientes" ]
+var pages=[]
+if (JSON.parse(localStorage.getItem('tokenUser'))?.is_superuser){
+    pages=[ "Pedidos", "Produtos", "Categorias", "Clientes" ]
+}else{
+    pages=[ "Pedidos", "Novo Pedido"]
+}
 
 export default function Header() {
     return (
@@ -19,7 +24,11 @@ export default function Header() {
             <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
                 {pages.map((page) => { 
-                    return <Nav.Link key={page} href={"/"+page.toLowerCase()}>{page}</Nav.Link>
+                    if (page === "Novo Pedido") {
+                        return <Nav.Link key={page} href={"/pedidos/novo"}>{page}</Nav.Link>
+                    }else{
+                        return <Nav.Link key={page} href={"/"+page.toLowerCase()}>{page}</Nav.Link>
+                    }
                 })}
             </Nav>
             </Navbar.Collapse>

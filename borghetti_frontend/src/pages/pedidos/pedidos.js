@@ -13,6 +13,7 @@ const status = {'pending': 'Pendente', 'in_progress': 'Em andamento', 'done': 'F
 const Pedidos = () => {
     const [pedidos, setPedidos] = useState([]);
     const [reload, setReload] = useState(false);
+    const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('tokenUser')));
 
     const fetchProdutos = async () => {
         const config = {
@@ -55,10 +56,10 @@ const Pedidos = () => {
             }).catch((error) => {
                 console.log(error);
                 if (error.response.status === 403) {
-                    localStorage.removeItem("tokenAccess");
-                    localStorage.removeItem("tokenUser");
-                    localStorage.removeItem("tokenRefresh");
-                    window.location.href = '/login';
+                    // localStorage.removeItem("tokenAccess");
+                    // localStorage.removeItem("tokenUser");
+                    // localStorage.removeItem("tokenRefresh");
+                    // window.location.href = '/login';
                 }
                 reject(error);
             });
@@ -66,7 +67,14 @@ const Pedidos = () => {
     }
 
     const fetchPedidos = async () => {
-        const clientes = await fetchClientes();
+        var clientes = null;
+        if (currentUser.is_superuser) {
+            try {
+                clientes = await fetchClientes();
+            }catch(e){
+                clientes = [currentUser];
+            }
+        }
         const produtos = await fetchProdutos();
         console.log(produtos)
         console.log(clientes);
@@ -109,6 +117,7 @@ const Pedidos = () => {
     }    
     
     useEffect(() => {
+        setCurrentUser(JSON.parse(localStorage.getItem('tokenUser')));
         fetchPedidos();
     }, []);
 
@@ -131,7 +140,7 @@ const Pedidos = () => {
                     <tbody>
                         {pedidos.map((pedido) => ( 
                         <tr key={pedido.id}>
-                            <td>{pedido.client ? pedido.client.first_name + pedido.client.last_name :'' }</td>
+                            <td>{pedido.client ? pedido.client.first_name + ' ' +  pedido.client.last_name :'' }</td>
                             <td>{pedido.total ? "RS " + pedido.total.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
                             <td>{pedido.created_at.slice(8,10) + "/" + pedido.created_at.slice(5,7) + "/" + pedido.created_at.slice(0,4)}</td>
                             <td>{status[pedido.status]} </td>
@@ -139,7 +148,7 @@ const Pedidos = () => {
                                 <div className="divTableButtons">
                                     <Button onClick={null} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>
                                     <Button onClick={null} variant="outline-danger"><FontAwesomeIcon icon={faTrash} /></Button>
-                                    <Button onClick={null} variant="outline-success"><FontAwesomeIcon icon={faPrint} /></Button>
+                                    {currentUser.is_superuser ? <Button onClick={null} variant="outline-success"><FontAwesomeIcon icon={faPrint} /></Button> : ''}
                                 </div>  
                             </td>
                         </tr>
