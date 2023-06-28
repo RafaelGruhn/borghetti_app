@@ -1,8 +1,8 @@
 import uuid
+import datetime
 
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.utils import timezone
 
 from users.models import User
 from products.models import Product
@@ -26,7 +26,7 @@ class Demand(models.Model):
         default=DemandStatusChoices.PENDING)
     created_at = models.DateTimeField(_('Criado em'), auto_now_add=True)
     updated_at = models.DateTimeField(_('Atualizado em'), auto_now=True)
-    demand_date = models.DateField(_('Data da Demanda'), default=timezone.now)
+    demand_date = models.DateField(_('Data da Demanda'), default=datetime.date.today)
 
     class Meta:
         verbose_name = _('Demanda')
