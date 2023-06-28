@@ -44,3 +44,11 @@ h1 {
 .inputQuantidade{
     width: 50px;
 }
+@media (max-width: 500px) {
+    #TablePedidos>tbody>tr>td{
+        font-size: 3vw;
+    }
+    #TablePedidos .divTableButtons>button{
+        margin-left: 2px;
+    }
+  }
