@@ -13,10 +13,12 @@ const Update =  ({produto ,reload, categorias}) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  console.log(produto);
+
   const produtoid = produto.id;
   const [name, setName] = useState(produto.name);
   const [kind, setKind] = useState(produto.kind);
-  const [preco, setPreco] = useState(produto.preco ? 'RS ' + produto.preco .replace('.',','): 'RS 0,00');
+  const [preco, setPreco] = useState( 'RS ' + produto.price.toFixed(2).replace('.',','));
   console.log(produto);
 
   const updateProduto = async () => {

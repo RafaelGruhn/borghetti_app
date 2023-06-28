@@ -80,7 +80,7 @@ const Pedidos = () => {
         await API(config).then((response) => {
             console.log(response.data);
             setPedidos(response.data.results.map((pedido) => {
-                pedido.client = clientes.find((cliente) => cliente.id === pedido.client);
+                pedido.client = clientes ? clientes.find((cliente) => cliente.id === pedido.client) : null;
                 pedido.products = pedido.products.map((p) => {
                     p.product = produtos.find((produto) => produto.id === p.product);
                     return p;

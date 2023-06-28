@@ -13,7 +13,7 @@ import CriarPedido from '../pages/criarPedido'
 const AppRoutes = ({token, setToken}) => {
     const tokenUser = JSON.parse(localStorage.getItem('tokenUser'))
     console.log(tokenUser)
-    if (tokenUser?.username === 'admin') {
+    if (tokenUser?.is_superuser === true) {
         return (
             <Routes>
                 <Route path="pedidos" element={<Pedidos />} />
@@ -24,6 +24,15 @@ const AppRoutes = ({token, setToken}) => {
                 <Route path="logout" element={<Logout setToken={setToken}/>} />
                 <Route path="*" element={<Navigate to="/pedidos" replace/>} />
             </Routes>
+        )
+    } else if (tokenUser?.is_superuser === false) {
+        return(
+        <Routes>
+            <Route path="pedidos" element={<Pedidos />} />
+            <Route path="pedidos/novo/" element={<CriarPedido />} />
+            <Route path="logout" element={<Logout setToken={setToken}/>} />
+            <Route path="*" element={<Navigate to="/pedidos" replace/>} />
+        </Routes>
         )
     } else {
         return (
