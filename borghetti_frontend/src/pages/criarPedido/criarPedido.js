@@ -132,7 +132,7 @@ const CriarPedido = () => {
                                                     return produtoMap;
                                                 }
                                                 )))} 
-                                                value={produto.quantidade}>
+                                                value={parseInt(produto.quantidade)}>
                                             </Form.Control>
                                         </div>
                                     </td>

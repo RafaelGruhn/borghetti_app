@@ -5,7 +5,7 @@ import './footer.css'
 const Footer = () => (
     <footer className="app-footer">
         <span className="app-footer__message">
-            das ist der footer
+            Borghetti@ 2023 - Todos os direitos reservados
         </span>
     </footer>
 )
