@@ -82,10 +82,10 @@ const CriarPedido = () => {
     const getMinDate = ()=>{
         let today = new Date();
         let tomorrow = new Date();
-        if(today.getHours() < 6){
-            return today.toISOString().split('T')[0];
-        }else{
+        if(today.getHours() < 18){
             return new Date(tomorrow.setDate(tomorrow.getDate() + 1)).toISOString().split("T")[0]
+        }else{
+            return new Date(tomorrow.setDate(tomorrow.getDate() + 2)).toISOString().split("T")[0]
         }
     }
 
@@ -94,7 +94,7 @@ const CriarPedido = () => {
             <div className='ProductsHeader BaseHeader'>
                 <h2>Criar Pedido</h2>
                 <div style={{display:'flex'}}>
-                    <Form.Control type="date" placeholder="Data" className='inputData' min={getMinDate()}
+                    <Form.Control onKeyDown={(e) => e.preventDefault()} type="date" placeholder="Data" className='inputData' min={getMinDate()}
                         onChange={e => setData(e.target.value)} value={data}/>
                     <PromptCreatePedidos produtos={produtos} date={data}/>
                 </div>
@@ -119,7 +119,7 @@ const CriarPedido = () => {
                                     <td className='td2Produtos text-nowrap'>{produto.price ? "RS " + produto.price.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
                                     <td style={{width:0}} className="text-nowrap"> 
                                         <div className="divTableButtons">
-                                            <text style={{paddingRight:'20px'}}>quantia: </text> 
+                                            <a style={{paddingRight:'20px'}}>quantia: </a> 
                                             <Form.Control style={{width:'80px'}} className='inputQuantidade' type='number'
                                             onChange={e => (setProdutos(
                                                 produtos.map((produtoMap) => {

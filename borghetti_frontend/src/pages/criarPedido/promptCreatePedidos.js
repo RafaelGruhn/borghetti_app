@@ -21,7 +21,7 @@ const PromptCreatePedidos =  ({produtos, date}) => {
         const produtctsList = produtos.filter(produto => produto.quantidade > 0).map((produto) => ({product: produto.id, quantity: produto.quantidade}));
         var newPedido = {"client": user.id, "products": produtctsList}
         if (date) {
-            newPedido = {...newPedido, "date": date}
+            newPedido = {...newPedido, "demand_date": date}
         }
         console.log(newPedido);
         const config = {

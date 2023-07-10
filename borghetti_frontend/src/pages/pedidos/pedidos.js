@@ -4,11 +4,9 @@ import Base from '../../components/Base'
 import API from '../../api.js';
 import { Table, Button } from 'react-bootstrap';
 import './pedidos.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPencil, faTrash, faPrint } from '@fortawesome/free-solid-svg-icons'
+import ShowPedido from './showPedido';
 
-
-const status = {'pending': 'Pendente', 'in_progress': 'Em andamento', 'done': 'Finalizado'}
+const status = {'pending': 'Pendente', 'approved': 'Aprovado', 'delivered': 'Finalizado'}
 
 const Pedidos = () => {
     const [pedidos, setPedidos] = useState([]);
@@ -26,10 +24,8 @@ const Pedidos = () => {
         
         return new Promise((resolve, reject) => {
             API(config).then((response) => {
-                console.log(response.data);
                 resolve(response.data.results);
             }).catch((error) => {
-                console.log(error);
                 if (error.response.status === 403) {
                     localStorage.removeItem("tokenAccess");
                     localStorage.removeItem("tokenUser");
@@ -51,10 +47,8 @@ const Pedidos = () => {
         };
         return new Promise((resolve, reject) => {
             API(config).then((response) => {
-                console.log(response.data);
                 resolve(response.data.results);
             }).catch((error) => {
-                console.log(error);
                 if (error.response.status === 403) {
                     // localStorage.removeItem("tokenAccess");
                     // localStorage.removeItem("tokenUser");
@@ -67,6 +61,7 @@ const Pedidos = () => {
     }
 
     const fetchPedidos = async () => {
+        const produtos = await fetchProdutos();
         var clientes = null;
         if (currentUser.is_superuser) {
             try {
@@ -75,9 +70,6 @@ const Pedidos = () => {
                 clientes = [currentUser];
             }
         }
-        const produtos = await fetchProdutos();
-        console.log(produtos)
-        console.log(clientes);
         const config = {
             method: 'get',
             url: 'api/demands/',
@@ -86,7 +78,6 @@ const Pedidos = () => {
             },
         };
         await API(config).then((response) => {
-            console.log(response.data);
             setPedidos(response.data.results.map((pedido) => {
                 pedido.client = clientes ? clientes.find((cliente) => cliente.id === pedido.client) : null;
                 pedido.products = pedido.products.map((p) => {
@@ -96,9 +87,7 @@ const Pedidos = () => {
                 pedido.total = pedido.products.reduce((total, p) => total + p.product.price * p.quantity, 0);
                 return pedido;
             }));
-            console.log(pedidos);
         }).catch((error) => {
-            console.log(error);
             if (error.response.status === 403) {
                 localStorage.removeItem("tokenAccess");
                 localStorage.removeItem("tokenUser");
@@ -112,7 +101,6 @@ const Pedidos = () => {
 
     if (reload) {
         setReload(false);
-        console.log('reload')
         fetchPedidos();
     }    
     
@@ -138,17 +126,26 @@ const Pedidos = () => {
                         </tr>
                     </thead>
                     <tbody >
-                        {pedidos.map((pedido) => ( 
+                        {pedidos
+                        .sort((pedido1, pedido2)=>{
+                            if (pedido1.status > pedido2.status) return -1;
+                            if (pedido1.status < pedido2.status) return 1;
+                            return 0;
+                            })
+                        .sort((pedido1, pedido2)=>{
+                            if (pedido1.demand_date > pedido2.demand_date) return 1;
+                            if (pedido1.demand_date < pedido2.demand_date) return -1;
+                            return 0;
+                         })
+                         .map((pedido) => ( 
                         <tr key={pedido.id}>
                             <td>{pedido.client ? pedido.client.first_name + ' ' +  pedido.client.last_name :'' }</td>
                             <td>{pedido.total ? "RS " + pedido.total.toFixed(2).replace('.',',') : 'Sem Valor'}</td>
                             <td>{pedido.demand_date.slice(8,10) + "/" + pedido.demand_date.slice(5,7) + "/" + pedido.demand_date.slice(0,4)}</td>
-                            <td>{status[pedido.status]} </td>
+                            <td style={pedido.status === 'pending' ? {color:'Orange'}: {color:'Green'}}>{status[pedido.status]} </td>
                             <td style={{width:0}} className="text-nowrap"> 
                                 <div className="divTableButtons">
-                                    <Button onClick={null} variant="outline-warning"><FontAwesomeIcon icon={faPencil} /></Button>
-                                    <Button onClick={null} variant="outline-danger"><FontAwesomeIcon icon={faTrash} /></Button>
-                                    {currentUser.is_superuser ? <Button onClick={null} variant="outline-success"><FontAwesomeIcon icon={faPrint} /></Button> : ''}
+                                    <ShowPedido pedido={pedido} reload={setReload} currentUser={currentUser}/>
                                 </div>  
                             </td>
                         </tr>
