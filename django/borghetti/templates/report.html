@@ -7,24 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Relatório</title>
+    <title>Relatório de Pedidos Borghetti</title>
     <style type="text/css">
         .styled-table {
             border-collapse: collapse;
-            margin: 25px 0;
+            margin: 10px 0;
             font-size: 0.9em;
             font-family: sans-serif;
             min-width: 400px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
         }
         .styled-table thead tr {
-            background-color: #009879;
+            background-color: #6B3C34;
             color: #ffffff;
-            text-align: left;
+            text-align: letf;
         }
         .styled-table th,
         .styled-table td {
-            padding: 12px 15px;
+            padding: 6px 6px;
+            text-align: left;
         }
         .styled-table tbody tr {
             border-bottom: 1px solid #dddddd;
@@ -37,7 +38,7 @@
         }
         .styled-table tbody tr.active-row {
             font-weight: bold;
-            color: #009879;
+            color: #6B3C34;
         }
     </style>
 </head>
@@ -45,20 +46,33 @@
     <table class="styled-table">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Points</th>
+                <th><h3>Cliente</h3></th>
+                <th><h3>Produtos</h3></th>
+                <th><h3>Data do Pedido</h3></th>
+                <th><h3>Data para Entrega</h3></th>
+                <th><h3>Status</h3></th>
+                <th><h3>Valor Total</h3></th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>Dom</td>
-                <td>6000</td>
+            {% for demand in objects %}
+            <tr {% if forloop.counter|divisibleby:2 %}class="active-row"{% endif %} >
+                <td>{{ demand.client.get_full_name }}</td>
+                <td>
+                {% for demand_product in demand.products.all %}
+                {{ demand_product.product.name }} x {{ demand_product.quantity }}<br>
+                {% endfor %}
+                </td>
+                <td>{{ demand.created_at|date:"d/m/Y" }}</td>
+                <td>{{ demand.demand_date|date:"d/m/Y" }}</td>
+                <td>{{ demand.get_status_display }}</td>
+                <td>R$ {{ demand.total_value|floatformat:2 }}</td>
             </tr>
-            <tr class="active-row">
-                <td>Melissa</td>
-                <td>5150</td>
-            </tr>
+            {% endfor %}
         </tbody>
     </table>
+    <div>
+        Relatório gerado em: {{ now|date:"d/m/Y H:i:s" }}
+    </div>
   </body>
 </html>

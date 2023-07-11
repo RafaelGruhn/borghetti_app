@@ -35,6 +35,15 @@ class Demand(models.Model):
     def get_products(self):
         return self.products.all()
 
+    def total_value(self):
+        total = 0
+        try:
+            for demand_product in self.get_products():
+                total += (demand_product.product.price * demand_product.quantity)
+        except Exception:
+            pass
+        return round(total, 2)
+
 
 class DemandProduct(models.Model):
     """Demand Products Model"""

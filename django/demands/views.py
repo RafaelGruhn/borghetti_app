@@ -22,9 +22,12 @@ class DemandViewSet(viewsets.ModelViewSet):
     @action(detail=False, methods=['get'], url_path='reports/pdf')
     def get_report(self, request):
         """Generate report and send file link to user."""
+        if not request.user.is_superuser:
+            return HttpResponse('You are not allowed to generate reports.')
         queryset = self.filter_queryset(self.get_queryset())
         template_path = 'report.html'
-        context = {'objects': queryset}
+        context = {'objects': queryset,
+                   'now': datetime.now()}
         # Create a Django response object, and specify content_type as pdf
         response = HttpResponse(content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="{datetime.now().strftime("%Y%m%d-%H%M%S")}_report.pdf"'
