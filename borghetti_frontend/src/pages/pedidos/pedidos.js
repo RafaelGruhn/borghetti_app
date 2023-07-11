@@ -55,6 +55,29 @@ const Pedidos = () => {
     }
 
     const handleCriarRelatorio = async () => {
+        let filter = '';
+        if (currentUser.is_superuser) {
+            if (dataFilter) filter += `?demand_date=${dataFilter}`;
+            else filter += '?demand_date=';
+            if (statusFilter) filter += `&status=${statusFilter}`;
+            if (clienteFilter) filter += `&client=${clienteFilter}`;
+        }
+        const config = {
+            method: 'get',
+            responseType: 'blob',
+            url: 'api/demands/reports/pdf/'+filter,
+            headers: {
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
+            },
+        };
+        await API(config).then((response) => {
+            const file = new Blob([response.data], { type: 'application/pdf' });
+            const fileURL = URL.createObjectURL(file);
+            window.open(fileURL,  '_blank');
+        })
+        .catch((err) => {
+            return Promise.reject({ Error: 'Something Went Wrong', err });
+        });
     }
 
     const fetchClientes = async () => {
