@@ -100,7 +100,7 @@ const ShowPedido =  ({pedido, reload}) => {
       <Button  onClick={handleShow} className='text-nowrap' variant="success"><FontAwesomeIcon icon={faEye} /></Button>{' '}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Vizualizar Pedido</Modal.Title>
+          <Modal.Title>Visualizar Pedido de {pedido.client.first_name + " " + pedido.client.last_name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Table className="table table-striped">
