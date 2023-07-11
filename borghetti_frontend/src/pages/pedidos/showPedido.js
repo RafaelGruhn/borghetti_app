@@ -49,7 +49,7 @@ const ShowPedido =  ({pedido, reload}) => {
     if (pedido.status === 'approved')
       return true
     let today = new Date();
-    let demand_date = new Date(new Date(pedido.demand_date).setHours(11,0,0,0))
+    let demand_date = new Date(new Date(pedido.demand_date).setHours(18,0,0,0))
     console.log(today)
     console.log(demand_date)
     const diffTime = (today - demand_date);
