@@ -27,6 +27,7 @@ class Demand(models.Model):
     created_at = models.DateTimeField(_('Criado em'), auto_now_add=True)
     updated_at = models.DateTimeField(_('Atualizado em'), auto_now=True)
     demand_date = models.DateField(_('Data da Demanda'), default=datetime.date.today)
+    observation = models.TextField(_('Observação'), blank=True, null=True)
 
     class Meta:
         verbose_name = _('Demanda')
