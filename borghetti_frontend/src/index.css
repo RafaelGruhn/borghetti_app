@@ -76,6 +76,15 @@ div.accordion-body{
 .divTableButtons>button{
   margin-left: 10px;
 }
+.btnsFilter{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.btnsFilter>button{
+  margin-left: 10px;
+}
 @media (min-width: 1000px) {
   .btnInsert{
     max-width: 50vw;
@@ -92,8 +101,37 @@ div.accordion-body{
   .BaseHeader > div{
     flex-direction: column;
   }
+  .Filter{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  .Filter > *{
+    margin-bottom: 10px;
+  }
   .BaseHeader > div > *{
     margin-bottom: 10px;
   }
 }
-  
+@media (min-width: 500px) {
+  .Filter{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+  .Filter > *{
+    margin-right: 10px;
+  }
+  .btnsFilter {
+    margin-left: 10px;
+    margin-right: 0px;
+    display: flex;
+    flex-direction: row;
+
+  }
+} 

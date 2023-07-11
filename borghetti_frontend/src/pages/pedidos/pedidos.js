@@ -2,16 +2,23 @@
 import React, { useEffect , useState} from 'react'
 import Base from '../../components/Base'
 import API from '../../api.js';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Form } from 'react-bootstrap';
 import './pedidos.css'
 import ShowPedido from './showPedido';
+import {faFileExcel, faSearch, faEraser } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const status = {'pending': 'Pendente', 'approved': 'Aprovado', 'delivered': 'Finalizado'}
 
 const Pedidos = () => {
     const [pedidos, setPedidos] = useState([]);
+    const [clientes, setClientes] = useState([]);
     const [reload, setReload] = useState(false);
     const [currentUser, setCurrentUser] = useState(JSON.parse(localStorage.getItem('tokenUser')));
+    const [showFilter, setShowFilter] = useState(false);
+    const [dataFilter, setDataFilter] = useState('');
+    const [statusFilter, setStatusFilter] = useState('');
+    const [clienteFilter, setClienteFilter] = useState('');
 
     const fetchProdutos = async () => {
         const config = {
@@ -35,6 +42,19 @@ const Pedidos = () => {
                 reject(error);
             });
         });
+    }
+
+    const handleFilter = async () => {
+        fetchPedidos();
+    }
+
+    const handleCleanFilter = async () => {
+        setDataFilter('');
+        setStatusFilter('');
+        setClienteFilter('');
+    }
+
+    const handleCriarRelatorio = async () => {
     }
 
     const fetchClientes = async () => {
@@ -62,17 +82,25 @@ const Pedidos = () => {
 
     const fetchPedidos = async () => {
         const produtos = await fetchProdutos();
-        var clientes = null;
         if (currentUser.is_superuser) {
             try {
-                clientes = await fetchClientes();
+                setClientes(await fetchClientes());
+                console.log(clientes);
             }catch(e){
-                clientes = [currentUser];
+                setClientes( [currentUser]);
             }
+        }
+        console.log(clientes);
+        let filter = '';
+        if (currentUser.is_superuser) {
+            if (dataFilter) filter += `?demand_date=${dataFilter}`;
+            else filter += '?demand_date=';
+            if (statusFilter) filter += `&status=${statusFilter}`;
+            if (clienteFilter) filter += `&client=${clienteFilter}`;
         }
         const config = {
             method: 'get',
-            url: 'api/demands/',
+            url: 'api/demands/'+filter,
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
@@ -113,7 +141,31 @@ const Pedidos = () => {
         <Base>
             <div className='ProductsHeader BaseHeader'>
                 <h2>Pedidos</h2>
+                <div>
+                {currentUser.is_superuser ? <Button className='btnInsert' style={{marginRight:'10px'}} variant="info" 
+                    onClick={() => setShowFilter(!showFilter)}>{!showFilter ? "Abrir Filtro" : "Fechar Filtro"}</Button> : null}
                 <Button className='btnInsert' variant="success" onClick={() => window.location.href = '/pedidos/novo'}>Novo Pedido</Button>
+                </div>
+            </div>
+            <div className='Filter' hidden={!showFilter}>
+                <Form.Control onKeyDown={(e) => e.preventDefault()} type="date" placeholder="Data" className='inputData' 
+                    onChange={e => setDataFilter(e.target.value)} value={dataFilter}/>
+                <Form.Control as="select" className='inputStatus' onChange={e => setStatusFilter(e.target.value)} value={statusFilter}>
+                    <option value="">Status</option>
+                    <option value="pending">Pendente</option>
+                    <option value="approved">Aprovado</option>
+                </Form.Control>
+                <Form.Control as="select" className='inputCliente' onChange={e => setClienteFilter(e.target.value)} value={clienteFilter}>
+                    <option value="">Cliente</option>
+                    {clientes.map((client) => {
+                        return <option value={client.id}>{client.first_name + " " + client.last_name}</option>
+                    })}
+                </Form.Control>
+                <div className='btnsFilter'>
+                    <Button variant="success" onClick={handleFilter}><FontAwesomeIcon icon={faSearch} /></Button>
+                    <Button variant="warning" onClick={handleCleanFilter}><FontAwesomeIcon icon={faEraser} /></Button>
+                    <Button variant="info" onClick={handleCriarRelatorio}><FontAwesomeIcon icon={faFileExcel} /></Button>
+                </div>
             </div>
                 <Table responsive striped id='TablePedidos'>
                     <thead>
