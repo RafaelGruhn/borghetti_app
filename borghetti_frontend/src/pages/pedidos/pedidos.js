@@ -112,9 +112,13 @@ const Pedidos = () => {
                 setClientes(clientesPedidos);
                 console.log(clientes);
             }catch(e){
-                var clientesPedidos = [currentUser];
-                setClientes( clientesPedidos);
+                console.log(e);
             }
+        }
+        else{
+            var clientesPedidos = [JSON.parse(localStorage.getItem('tokenUser'))];
+            setClientes( clientesPedidos);
+            console.log(clientes);
         }
         console.log(clientes);
         let filter = '';
