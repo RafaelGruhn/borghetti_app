@@ -105,12 +105,15 @@ const Pedidos = () => {
 
     const fetchPedidos = async () => {
         const produtos = await fetchProdutos();
+        var clientesPedidos = [];
         if (currentUser.is_superuser) {
             try {
-                setClientes(await fetchClientes());
+                var clientesPedidos = await fetchClientes();
+                setClientes(clientesPedidos);
                 console.log(clientes);
             }catch(e){
-                setClientes( [currentUser]);
+                var clientesPedidos = [currentUser];
+                setClientes( clientesPedidos);
             }
         }
         console.log(clientes);
@@ -130,7 +133,7 @@ const Pedidos = () => {
         };
         await API(config).then((response) => {
             setPedidos(response.data.results.map((pedido) => {
-                pedido.client = clientes ? clientes.find((cliente) => cliente.id === pedido.client) : null;
+                pedido.client = clientesPedidos ? clientesPedidos.find((cliente) => cliente.id === pedido.client) : null;
                 pedido.products = pedido.products.map((p) => {
                     p.product = produtos.find((produto) => produto.id === p.product);
                     return p;

@@ -49,14 +49,14 @@ const ShowPedido =  ({pedido, reload}) => {
     if (pedido.status === 'approved')
       return true
     let today = new Date();
-    let demand_date = new Date(new Date(pedido.demand_date).setHours(18,0,0,0))
+    let demand_date = new Date(new Date(pedido.demand_date).setHours(11,0,0,0))
     console.log(today)
     console.log(demand_date)
-    const diffTime = Math.abs(today - demand_date);
+    const diffTime = (today - demand_date);
     const diffHours = Math.ceil(diffTime / (1000 * 60 * 60)); 
-    console.log(diffTime)
+    console.log(diffTime / (1000 * 60 * 60))
     console.log(diffHours)
-    if(diffHours > 10){
+    if(diffHours < 1){
         return false
     }else{
         return true
@@ -66,6 +66,10 @@ const ShowPedido =  ({pedido, reload}) => {
 
 
   const handleDelete = async (e) => {
+    if (getMinDate()) {
+      alert('Não é possível excluir um pedido depois das 18h do dia anterior')
+      return
+    }
     setSpinDelete(true);
     const config = {
       method: 'delete',
