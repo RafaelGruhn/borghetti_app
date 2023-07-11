@@ -35,7 +35,7 @@ export default function Header() {
             <Nav id='Nav2'>
                 {/* <Nav.Link eventKey={2} href="/logout"><img src={sair}/></Nav.Link> */}
                 <Nav.Link eventKey={2} href="/logout">Sair </Nav.Link>
-                <Nav.Link><img id='Campainha' src={campainha} alt="Notificações"/></Nav.Link>
+                {/* <Nav.Link><img id='Campainha' src={campainha} alt="Notificações"/></Nav.Link> */}
             </Nav>
         </Container>
         </Navbar>
