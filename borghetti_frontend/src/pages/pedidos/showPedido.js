@@ -120,7 +120,7 @@ const ShowPedido =  ({pedido, reload}) => {
                 <tr>
                   <td><b>Data de Entrega</b></td>
                   <td></td>
-                  <td style={{width:0}} className="text-nowrap"> <b className="divTableButtons">{pedido.demand_date}</b></td>
+                  <td style={{width:0}} className="text-nowrap"> <b className="divTableButtons">{pedido.demand_date.slice(8,10) + "/" + pedido.demand_date.slice(5,7) + "/" + pedido.demand_date.slice(0,4)}</b></td>
                 </tr>
             </tbody>
           </Table>
