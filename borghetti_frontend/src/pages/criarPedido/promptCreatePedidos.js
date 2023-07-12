@@ -2,26 +2,28 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import API from '../../api.js';
-import { Table } from 'react-bootstrap';
+import { Table, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 
 const PromptCreatePedidos =  ({produtos, date}) => {
   const [show, setShow] = useState(false);
   const [spin, setSpin] = useState(false);
+  const [observacao, setObservacao] = useState('');
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  
 
 
     const handleCriarPedido = () => {
-
+        setSpin(true);
         const user = JSON.parse(localStorage.getItem('tokenUser'))
         console.log(user)
         const produtctsList = produtos.filter(produto => produto.quantidade > 0).map((produto) => ({product: produto.id, quantity: produto.quantidade}));
         var newPedido = {"client": user.id, "products": produtctsList}
         if (date) {
-            newPedido = {...newPedido, "demand_date": date}
+            newPedido = {...newPedido, "demand_date": date, "observation": observacao}
         }
         console.log(newPedido);
         const config = {
@@ -33,9 +35,11 @@ const PromptCreatePedidos =  ({produtos, date}) => {
             data: newPedido,
         };
         API(config).then((response) => {
-            console.log(response.data);
-            window.location.href = '/pedidos';
+          setSpin(false);
+          console.log(response.data);
+          window.location.href = '/pedidos';
         }).catch((error) => {
+            setSpin(false);
             console.log(error);
             if (error.response.status === 403) {
                 localStorage.removeItem("tokenAccess");
@@ -82,7 +86,7 @@ const PromptCreatePedidos =  ({produtos, date}) => {
                 </tr>
             </tbody>
           </Table>
-
+          <Form.Control as="textarea" rows={3} placeholder="Observação" value={observacao} onChange={(e) => setObservacao(e.target.value)} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="warning" onClick={handleClose}>

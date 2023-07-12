@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import API from '../../api.js';
-import { Table } from 'react-bootstrap';
+import { Table, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye } from '@fortawesome/free-solid-svg-icons'
 
@@ -124,7 +124,7 @@ const ShowPedido =  ({pedido, reload}) => {
                 </tr>
             </tbody>
           </Table>
-
+          <Form.Control as="textarea" disabled rows={3} placeholder="Observação" value={pedido.observation} />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="warning" onClick={handleClose}>
