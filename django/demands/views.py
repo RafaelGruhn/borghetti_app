@@ -26,7 +26,21 @@ class DemandViewSet(viewsets.ModelViewSet):
             return HttpResponse('You are not allowed to generate reports.')
         queryset = self.filter_queryset(self.get_queryset())
         template_path = 'report.html'
+        total_products = {}
+        for demand in queryset:
+            demand_date = demand.demand_date.strftime('%d/%m/%Y')
+            if total_products.get(demand_date) is None:
+                total_products.update({demand_date: {}})
+            for demand_product in demand.get_products():
+                for date, row in total_products.items():
+                    if date == demand_date:
+                        if row.get(demand_product.product.name) is None:
+                            total_products[date].update({demand_product.product.name: {'quantity': demand_product.quantity, 'price': demand_product.get_price()}})
+                        else:
+                            total_products[date][demand_product.product.name]['quantity'] += demand_product.quantity
+                            total_products[date][demand_product.product.name]['price'] += demand_product.get_price()
         context = {'objects': queryset,
+                   'total_products': total_products,
                    'now': datetime.now()}
         # Create a Django response object, and specify content_type as pdf
         response = HttpResponse(content_type='application/pdf')

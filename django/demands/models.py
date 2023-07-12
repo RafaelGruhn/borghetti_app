@@ -56,3 +56,6 @@ class DemandProduct(models.Model):
     class Meta:
         verbose_name = _('Produto da Demanda')
         verbose_name_plural = _('Produtos da Demanda')
+
+    def get_price(self):
+        return round(self.product.price * self.quantity, 2)
