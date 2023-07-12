@@ -87,11 +87,11 @@ const Update =  ({cliente ,reload}) => {
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword">
                     <Form.Label>Senha</Form.Label>
-                    <Form.Control type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Deixe vazio para não alterar" />
+                    <Form.Control required type="password" onChange={(e) => setPassword(e.target.value)} value={password} placeholder="Senha" />
                 </Form.Group>
                 <Form.Group controlId="formBasicPassword2">
                     <Form.Label>Confirme a Senha</Form.Label>
-                    <Form.Control type="password" onChange={(e) => setPassword2(e.target.value)} value={password2} placeholder="Deixe vazio para não alterar"  />
+                    <Form.Control required type="password" onChange={(e) => setPassword2(e.target.value)} value={password2} placeholder="Confirmar Senha"  />
                 </Form.Group>
             </Form>
         </Modal.Body>
