@@ -19,7 +19,7 @@ const Clientes = () => {
         // const response = await axios.get('https://6458f77c4eb3f674df82b01f.mockapi.io/api/v1/Clientes');
         const config = {
             method: 'get',
-            url: 'api/users/',
+            url: 'api/users/?limit=100000',
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },

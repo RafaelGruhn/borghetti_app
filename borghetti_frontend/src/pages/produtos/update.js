@@ -13,8 +13,6 @@ const Update =  ({produto ,reload, categorias}) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  console.log(produto);
-
   const produtoid = produto.id;
   const [name, setName] = useState(produto.name);
   const [kind, setKind] = useState(produto.kind);

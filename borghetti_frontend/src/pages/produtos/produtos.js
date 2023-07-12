@@ -17,7 +17,7 @@ const Produtos = () => {
     const fetchCategorias = async () => {
         const config = {
             method: 'get',
-            url: 'api/product-types/',
+            url: 'api/product-types/?limit=100000',
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
@@ -41,7 +41,7 @@ const Produtos = () => {
     const fetchProdutos = async () => {
         const config = {
             method: 'get',
-            url: 'api/products/',
+            url: 'api/products/?limit=100000',
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },

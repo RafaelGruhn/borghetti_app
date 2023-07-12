@@ -23,7 +23,7 @@ const Pedidos = () => {
     const fetchProdutos = async () => {
         const config = {
             method: 'get',
-            url: 'api/products/',
+            url: 'api/products/?limit=100000',
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
@@ -55,10 +55,9 @@ const Pedidos = () => {
     }
 
     const handleCriarRelatorio = async () => {
-        let filter = '';
+        let filter = '?limit=100000';
         if (currentUser.is_superuser) {
-            if (dataFilter) filter += `?demand_date=${dataFilter}`;
-            else filter += '?demand_date=';
+            if (dataFilter) filter += `&demand_date=${dataFilter}`;
             if (statusFilter) filter += `&status=${statusFilter}`;
             if (clienteFilter) filter += `&client=${clienteFilter}`;
         }
@@ -83,7 +82,7 @@ const Pedidos = () => {
     const fetchClientes = async () => {
         const config = {
             method: 'get',
-            url: 'api/users/',
+            url: 'api/users/?limit=100000',
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
@@ -121,10 +120,9 @@ const Pedidos = () => {
             console.log(clientes);
         }
         console.log(clientes);
-        let filter = '';
+        let filter = '?limit=100000';
         if (currentUser.is_superuser) {
-            if (dataFilter) filter += `?demand_date=${dataFilter}`;
-            else filter += '?demand_date=';
+            if (dataFilter) filter += `&demand_date=${dataFilter}`;
             if (statusFilter) filter += `&status=${statusFilter}`;
             if (clienteFilter) filter += `&client=${clienteFilter}`;
         }

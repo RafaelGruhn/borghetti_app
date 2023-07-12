@@ -40,7 +40,6 @@ const Update =  ({cliente ,reload}) => {
     if (password !== '') {
       newcliente = { ...newcliente, password };
     }
-      console.log(cliente);
     const config = {
       method: 'patch',
       url: `api/users/${clienteid}/`,

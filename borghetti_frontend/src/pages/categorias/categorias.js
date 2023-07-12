@@ -17,7 +17,7 @@ const Categorias = () => {
     const fetchCategorias = async () => {
         const config = {
             method: 'get',
-            url: 'api/product-types/',
+            url: 'api/product-types/?limit=100000',
             headers: {
                 'Authorization': `Bearer ${JSON.parse(localStorage.getItem('tokenAccess'))}`,
             },
