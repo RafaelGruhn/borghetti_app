@@ -71,7 +71,9 @@ const Clientes = () => {
                         </tr>
                     </thead>
                     <tbody>
-            {Clientes.map((cliente) => ( 
+            {Clientes
+                .filter((cliente) => cliente.username === admin)
+                .map((cliente) => ( 
                     <tr key={cliente.id}>
                         <td>{cliente.username}</td>
                         <td>{cliente.first_name}</td>
