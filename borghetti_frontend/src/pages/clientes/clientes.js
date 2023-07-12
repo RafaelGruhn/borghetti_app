@@ -72,7 +72,7 @@ const Clientes = () => {
                     </thead>
                     <tbody>
             {Clientes
-                .filter((cliente) => cliente.username === "admin")
+                .filter((cliente) => cliente.username !== "admin")
                 .map((cliente) => ( 
                     <tr key={cliente.id}>
                         <td>{cliente.username}</td>
