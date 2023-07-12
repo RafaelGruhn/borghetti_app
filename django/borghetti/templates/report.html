@@ -52,7 +52,6 @@
                 <th><h3>Cliente</h3></th>
                 <th><h3>Produtos</h3></th>
                 <th><h3>Observações</h3></th>
-                <th><h3>Data do Pedido</h3></th>
                 <th><h3>Data para Entrega</h3></th>
                 <th><h3>Status</h3></th>
                 <th><h3>Valor Total</h3></th>
@@ -68,7 +67,6 @@
                 {% endfor %}
                 </td>
                 <td>{{ demand.observation|default:" " }}</td>
-                <td>{{ demand.created_at|date:"d/m/Y" }}</td>
                 <td>{{ demand.demand_date|date:"d/m/Y" }}</td>
                 <td>{{ demand.get_status_display }}</td>
                 <td>R$ {{ demand.total_value|floatformat:2 }}</td>
